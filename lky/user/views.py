@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User # 장고가 주는 User 모델 
 from django.contrib import auth
 from .models import My_user
+import uuid
+import datetime
 def signup(request):
     if request.method == "POST":
         if request.POST["password1"] == request.POST["password2"]: # 비밀번호가 같으면 회원가입
@@ -38,3 +40,13 @@ def logout(request):
     auth.logout(request)
     # 로그아웃되었습니다. 메세지 띄워주기
     return HttpResponseRedirect('/')
+
+def mypage(request):
+    if request.method == "POST":
+        return HttpResponseRedirect('/')    
+    else:
+        user_id = request.user
+        nowuser = My_user.objects.get(user_id=user_id.id)
+        print(nowuser.credit)
+        context = {'credit' : nowuser.credit }
+        return render(request, 'user/mypage.html', context)
