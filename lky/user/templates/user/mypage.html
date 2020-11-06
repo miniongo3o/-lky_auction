@@ -1,12 +1,11 @@
 {% extends 'auction/base.html' %}
 {% block content %}
-
  <section class="page-section portfolio" id="portfolio" style="margin-top: 100px">
             <!-- 경매등록 Section Heading-->
             <div class="container">
                 <!-- 경매등록 Section Heading-->
                 <div class="text-center">
-                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">내 정보 </h2>
+                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">MY PAGE </h2>
                 </div>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
@@ -21,22 +20,25 @@
                         <table>
                             <form method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <table class="table thead-light" width="200px" height="200px">
+                                <table width="450px" height="250px" style="text-align:left; margin:auto;">
                                     <tr>
-                                        <td >아이디</td>
-                                        <td>{{user.username}}</td>
+                                        <td>아이디</td>
+                                        <td><input type="text" value= {{user.username}} disabled> </td>
                                     </tr>
                                     <tr>
                                         <td>이메일</td>
-                                        <td>{{user.email}}</td>
+                                        <td><input type="text" value= {{user.email}}></td>
                                     </tr>
                                     <tr>
                                         <td>크래딧</td>
-                                        <td>{{credit}}</td>
+                                        <td><a href="{% url 'auction_credit' %}"><input type="text" value= {{credit}} disabled><button type="button"  class="btn btn-success float-right">충전하기</button></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td ><button type="submit" class="save btn btn-info float-right" >변경사항 저장</button></td>
                                     </tr>
                                     
                                 </table>
-                                <button type="submit" class="save btn btn-info float-right">변경사항 저장</button>
                             </form>
                         </table>
                     </div>
