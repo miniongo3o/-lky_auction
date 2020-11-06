@@ -7,7 +7,7 @@
             <div class="container">
                 <!-- Portfolio Section Heading-->
                 <div class="text-center">
-                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">경매 목록 </h2>
+                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block" id="test">경매 목록 </h2>
                 </div>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
@@ -79,7 +79,7 @@
                                     <div class="modal-body text-center">
                                         <div class="container">
                                             <div class="row justify-content-center">
-                                                <di class="col-lg-8">
+                                                <div class="col-lg-8">
                                                     <!-- Portfolio Modal - Title-->
                                                     <h2 class="product-name text-secondary mb-0"></h2>
                                                     <!-- Icon Divider-->
@@ -89,15 +89,16 @@
                                                         <div class="divider-custom-line"></div>
                                                     </div>
                                                     <!-- Portfolio Modal - Image-->
-                                                        <form>
+                                                        <form name="bid_info">
                                                             <div class="form-group">
+                                                                <text class="page-section-heading text-secondary mb-0 d-inline-block" id="min_price">{{i.min_price}}</text><br>
                                                                 <label for="bid_price" class="col-form-label">입찰할 가격:</label>
-                                                                <input type="text" class="form-control" id="bid_price" >
-                                                                {{i.min_price}}
+                                                                <input type="text" name="bid_price" class="form-control" id="bid_price" name="bid_submit">
+                                                                <input type="submit"  value="submit" class="btn"/>
                                                             </div>
                                                         </form>
                                                     <!-- Portfolio Modal - Text-->
-                                                    <button class="btn btn-primary" href="#" data-dismiss="modal" onclick="button1_click();"><i class="fas fa-check" ></i>입찰 확정</button>
+                                                    <button class="btn btn-primary" href="#" data-dismiss="modal" id="bid_click" ><i class="fas fa-check" ></i>입찰 확정</button>
                                                     <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>입찰 취소</button>
                                                 </div>
                                             </div>
@@ -113,9 +114,10 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
+
     $(function() {
         $('#portfolioModal').on('show.bs.modal', function (event) {
-            var button = <0><event class="relatedTarget"></event></0>
+            var button = $(event.relatedTarget)
 
             var name = button.data('name')
             $(".product-name").html(name)
@@ -123,6 +125,30 @@
             var content = button.data('content')
             $(".product-detail").html(content)
         })
+
+
+    $(document).ready(function(){
+        $('#bid_click').click(function(){
+            var value = document.getElementById('bid_price').value;
+            var min_price = document.getElementById('min_price');
+            console.log($('#min_price').text());
+            console.log(value,min_price);
+
+            alert(value);
+
+        });
     })
+
+
+
+
+})
+
+
+
+
+
+
+
 </script>
 {% endblock %}
