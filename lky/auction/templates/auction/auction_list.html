@@ -58,11 +58,9 @@
                                                     <!-- Portfolio Modal - Image-->
                                                     <img class="img-fluid rounded mb-5" src="{% static 'assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
                                                     <!-- Portfolio Modal - Text-->
-                                                    <p class="product-detail mb-5">상품설명</p>
 
-                                                    <p class="product-detail mb-5">상품명 : {{ i.name }}</p>
-                                                    <p class="product-detail mb-5">경매시작가 : {{ i.min_price }}</p>
-                                                    <p class="product-detail mb-5">최고입찰가 : {{ i.max_price }}</p>
+                                                    <!--상품설명위치-->
+
                                                     <button class="btn btn-primary" data-toggle="modal" data-toggle="modal" data-target="#bid"><i class="fas fa-check"></i>입찰하기</button>
                                                     <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>닫기</button>
                                                 </div>
@@ -91,10 +89,16 @@
                                                     <!-- Portfolio Modal - Image-->
                                                         <form name="bid_info">
                                                             <div class="form-group">
+                                                                <div>
+                                                                <text class="page-section-heading text-secondary mb-0 d-inline-block" >최소 입찰가 :</text>
                                                                 <text class="page-section-heading text-secondary mb-0 d-inline-block" id="min_price">{{i.min_price}}</text><br>
+                                                                </div>
+                                                                <div>
+                                                                <text class="page-section-heading text-secondary mb-0 d-inline-block" >현재 최고가 :</text>
+                                                                <text class="page-section-heading text-secondary mb-0 d-inline-block" id="max_price">{{i.max_price}}</text><br>
+                                                                </div>
                                                                 <label for="bid_price" class="col-form-label">입찰할 가격:</label>
                                                                 <input type="text" name="bid_price" class="form-control" id="bid_price" name="bid_submit">
-                                                                <input type="submit"  value="submit" class="btn"/>
                                                             </div>
                                                         </form>
                                                     <!-- Portfolio Modal - Text-->
@@ -129,12 +133,35 @@
 
     $(document).ready(function(){
         $('#bid_click').click(function(){
-            var value = document.getElementById('bid_price').value;
-            var min_price = document.getElementById('min_price');
-            console.log($('#min_price').text());
-            console.log(value,min_price);
+            var bid_price = Number(document.getElementById('bid_price').value);
+            var min_price=Number($('#min_price').text());
+            var max_price=Number($('#max_price').text());
+            console.log(bid_price,max_price,min_price);
 
-            alert(value);
+            console.log(typeof(bid_price));
+            console.log(typeof(min_price));
+            console.log(typeof(max_price));
+            console.log(bid_price,max_price,min_price);
+
+            if(min_price>bid_price)
+            {
+                alert('최소입찰가보다 적습니다.');
+            }
+            else
+            {
+
+                if(bid_price>max_price)
+                {
+                    alert('최고가 입찰하였습니다.');
+                }
+                else
+                {
+                    alert('최소입찰가보다는 높지만, 더높은 입찰자들이 존재합니다.');
+                }
+
+            }
+            console.log(value);
+
 
         });
     })
