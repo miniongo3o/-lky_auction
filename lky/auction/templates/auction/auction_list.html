@@ -25,9 +25,10 @@
                                     <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-search-dollar fa-2x"></i></i></div>
                                 </div>
                                 {% if i.photo %}
-                                <img class="img-fluid" src=../media/{{i.photo}} alt=""/>
-                                    <span class="float-left blockquote">12121{{ i.photo }}</span><br>
-
+                                <div id="image-container" style="margin: auto auto 30px auto; text-align: center; width: 240px; height: 240px; line-height: 240px;">
+                                    <img class="img-fluid" style="vertical-align: middle; border-radius: .3rem; "  src="media/{{ i.thumbnail }}" alt=""/>
+<!--                                    <span class="float-left blockquote">{{ i.photo }}</span><br>-->
+                                </div>
                                 {% else %}
                                 <img class="img-fluid" src="{% static 'assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
                                 {% endif %}

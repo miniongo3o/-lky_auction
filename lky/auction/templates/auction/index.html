@@ -31,11 +31,11 @@
                                     </div>
                                 </div>
                                 {% if i.photo %}
-                                <img class="img-fluid position-center" src="media/{{ i.thumbnail }}" alt=""/>
-                                {% else %}
-                                <img class="img-fluid" src="{% static 'assets/img/portfolio/placeholder.png' %}"/>
+                                <div id="image-container" style="margin: auto auto 30px auto; text-align: center; width: 240px; height: 240px; line-height: 240px;">
+                                    <img id="product-image" style="vertical-align: middle; border-radius: .3rem; " class="img-fluid position-center" src="media/{{ i.thumbnail }}" alt=""/>
+                                </div>
                                 {% endif %}
-                                <div class="font-weight-bold">
+                                <div class="font-weight-bold" style="margin: 0 0 10px 8px">
                                     <span class="float-left blockquote">{{ i.name }}</span>
                                     <br>
                                     <span class="float-right ">시작 가격:{{ i.min_price | intcomma }}￦</span>
@@ -183,6 +183,7 @@
 
     })
 
+
     // DB에서 받아온 end_date를 string -> date 로 변환
     // function strToDate(id) {
     //     // var endDate_str = document.getElementById(id).innerText;
@@ -225,8 +226,6 @@
         });
     })
 
-
-
     // 경매 마감 시간 카운트다운
     const countDownTimer = function(id, date) {
         var _vDate = new Date(date);
@@ -263,10 +262,5 @@
         }
         timer = setInterval(showRemaining, 1000);
     }
-
-    // strToDate('product-end-date');
-    // countDownTimer('product-end-date', endDate);
-
-
 </script>
 {% endblock %}
