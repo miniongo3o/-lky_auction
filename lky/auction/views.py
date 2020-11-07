@@ -1,8 +1,13 @@
 from django.shortcuts import render,redirect
+from django.conf import settings
+from django.contrib.auth.models import User
+
 from .forms import registerForm
 from .models import Product
-from django.contrib.auth.models import User
+
 from user.models import My_user
+from PIL import Image
+
 import uuid
 import datetime
 
@@ -36,13 +41,17 @@ def auctionRegister(request):
         data_name = str(datetime.now())[:10] + '-' + str(uuid.uuid1()) + f_type
         file_data['photo'].name = data_name
         form = registerForm(request.POST, request.FILES)
-        # print(form.is_valid())
+
         if form.is_valid():
             prod = form.save(commit=False)
-            # print(prod)
+            thumbnail_name = 'thumbnail-' + data_name
+            prod.thumbnail = thumbnail_name
             # prod.author = request.user
             # prod.published_date = timezone.now()
             prod.save()
+            img = Image.open(settings.MEDIA_ROOT + data_name)
+            img_resize = img.resize((int(img.width / (img.height / 240)), 240))
+            img_resize.save(settings.MEDIA_ROOT + thumbnail_name)
 
             return redirect('index')
     else:

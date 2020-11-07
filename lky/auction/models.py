@@ -7,10 +7,8 @@ class Product(models.Model):
     name = models.CharField(max_length=60, default='')
     # 사진 -> media file 설정 해주기
     photo = models.ImageField(blank=True, null=True)
-
-    # id
-    id = models.IntegerField(primary_key=True)
-
+    # 썸네일
+    thumbnail = models.CharField(max_length=60, default='')
     # 글 내용
     content = models.TextField()
     # 판매자 아이디 -> django User 상속
