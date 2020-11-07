@@ -22,7 +22,9 @@
                     <!-- 경매목록 Items-->
                     {% for i in product %}
                         <div class="col-md-6 col-lg-4 mb-5">
-                            <div class="portfolio-item mx-auto text-center" data-toggle="modal" data-target="#portfolioModal" data-img="{{ i.photo.url }}" data-end="{{ i.end_date | date:'Y-m-d H:i:s' }}" data-name="{{ i.name }}" data-content="{{ i.content }}">
+                            <div class="portfolio-item mx-auto text-center" data-toggle="modal" data-target="#portfolioModal"
+                                 data-img="{{ i.photo.url }}" data-end="{{ i.end_date | date:'Y-m-d H:i:s' }}" data-name="{{ i.name }}"
+                                 data-content="{{ i.content }}" data-min="{{ i.min_price }}" data-max="{{ i.max_price }}">
                                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                     <div class="portfolio-item-caption-content text-center text-white">
                                         <i class="fas fa-search-dollar fa-2x"></i>
@@ -68,17 +70,57 @@
                                                     <!-- 상품 Modal - Image-->
                                                     <img class="img-fluid rounded mb-5" id="modal-image" src="{% static 'assets/img/portfolio/placeholder.png' %}" alt="Log Cabin"/>
                                                     <!-- 상품 Modal - Text-->
-                                                    <!-- <p class="product-detail mb-5">상품설명</p>-->
-                                                    <p id="product-end-date"></p>
-                                                    <p>{{i.id}}</p>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>
+                                                                <div>시작값</div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="product-min"></div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div>최대값</div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="product-max"></div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div>남은시간</div>
+                                                            </td>
+                                                            <td>
+                                                                <div id="product-end-date"></div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div>내용</div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="product-detail"></div>
+                                                            </td>
+                                                        </tr>
 
-                                                    <!--<p id="sample01">f</p>-->
-                                                    <button class="btn btn-primary" href="#" data-dismiss="modal">
-                                                        <i class="fas fa-check"></i>입찰하기
-                                                    </button>
-                                                    <button class="btn btn-primary" href="#" data-dismiss="modal">
-                                                        <i class="fas fa-times fa-fw"></i>닫기
-                                                    </button>
+                                                         <tr>
+                                                            <td>
+                                                                <div>입찰금액</div>
+                                                            </td>
+                                                             <form method="POST" class="bid-form" action="{% url 'do_bid' %}">
+                                                                 {% csrf_token %}
+                                                                 <td>
+                                                                    <input type="number" step="1" pattern="\d+" name="bid-value" />
+                                                                     <input type="hidden" id="product-min-val" name="product-min" value="">
+                                                                     <input type="hidden" id="product-max-val" name="product-max" value="">
+                                                                     <button type="submit" class="save btn btn-primary float-right">
+                                                                         <i class="fas fa-check"></i>입찰하기
+                                                                     </button>
+                                                                 </td>
+                                                             </form>
+                                                        </tr>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -96,7 +138,6 @@
     // 메인페이지 - 모달(상품 디테일)창
     $(function() {
 
-
         $('#portfolioModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
 
@@ -105,6 +146,14 @@
 
             var content = button.data('content')
             $(".product-detail").html(content)
+
+            var min = button.data('min')
+            $(".product-min").html(min);
+            $("#product-min-val").attr("value", min);
+
+            var max = button.data('max')
+            $(".product-max").html(max);
+            $("#product-max-val").attr("value", max);
 
             var img = button.data('img')
             $("#modal-image").attr("src", img);

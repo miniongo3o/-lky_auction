@@ -89,3 +89,19 @@ def auction_list(request):
     product=Product.objects.filter(category=id).order_by('-pub_date')[:6]
     print(product)
     return render(request,'auction/auction_list.html',{"product":product})
+
+def do_bid(request):
+
+    if request.POST:
+        input_price = request.POST['bid-value']
+        min_price = request.POST['product-min']
+        max_price = request.POST['product-max']
+
+        if min_price < input_price and max_price < input_price:
+            pass
+
+        return redirect('/')
+    else:
+        return redirect('/')
+
+
