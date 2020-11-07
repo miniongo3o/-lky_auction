@@ -96,9 +96,10 @@ def do_bid(request):
         input_price = request.POST['bid-value']
         min_price = request.POST['product-min']
         max_price = request.POST['product-max']
-
-        if min_price < input_price and max_price < input_price:
-            pass
+        product_id=request.POST['product-id']
+        now_max = Product.objects.get(id=product_id)
+        now_max.max_price = int(input_price)
+        now_max.save()
 
         return redirect('/')
     else:
