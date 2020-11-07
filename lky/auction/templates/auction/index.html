@@ -91,6 +91,7 @@
         </section>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 <script>
     // 메인페이지 - 모달(상품 디테일)창
     $(function() {
@@ -158,8 +159,10 @@
 
         function showRemaining() {
             $('#portfolioModal').on('hidden.bs.modal', function () {
+                document.getElementById(id).textContent = "";
                 clearInterval(timer);
             });
+
             var now = new Date();
             var distDt = _vDate - now;
 
