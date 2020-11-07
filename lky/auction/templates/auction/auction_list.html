@@ -59,7 +59,7 @@
                                                     <img class="img-fluid rounded mb-5" src="{% static 'assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
                                                     <!-- 상품 Modal - Text-->
                                                     <p class="product-detail mb-5">상품설명</p>
-                                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-check"></i>입찰하기</button>
+                                                    <button class="btn btn-primary" data-toggle="modal" data-toggle="modal" data-target="#bid"><i class="fas fa-check"></i>입찰하기</button>
                                                     <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>닫기</button>
                                                 </div>
                                             </div>
@@ -85,7 +85,7 @@
                                                         <div class="divider-custom-line"></div>
                                                     </div>
                                                     <!-- Portfolio Modal - Image-->
-                                                        <form name="bid_info">
+                                                        <form name="bid_info" >
                                                             <div class="form-group">
                                                                 <div>
                                                                 <text class="page-section-heading text-secondary mb-0 d-inline-block" >최소 입찰가 :</text>
@@ -96,12 +96,12 @@
                                                                 <text class="page-section-heading text-secondary mb-0 d-inline-block" id="max_price">{{i.max_price}}</text><br>
                                                                 </div>
                                                                 <label for="bid_price" class="col-form-label">입찰할 가격:</label>
-                                                                <input type="text" name="bid_price" class="form-control" id="bid_price" name="bid_submit">
+                                                                <input type="text" name="bid_price" class="form-control" id="bid_price" name="bid_max" id="bid_max">
+                                                                <button class="btn btn-primary" href="#" data-dismiss="modal" id="bid_click" ><i class="fas fa-check" ></i>입찰 확정</button>
+                                                                <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>입찰 취소</button>
                                                             </div>
                                                         </form>
                                                     <!-- Portfolio Modal - Text-->
-                                                    <button class="btn btn-primary" href="#" data-dismiss="modal" id="bid_click" ><i class="fas fa-check" ></i>입찰 확정</button>
-                                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>입찰 취소</button>
                                                 </div>
                                             </div>
                                         </div>
