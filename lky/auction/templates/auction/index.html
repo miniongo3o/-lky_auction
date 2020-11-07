@@ -3,26 +3,30 @@
 {% load humanize %}
 {% block content %}
         <section class="page-section portfolio" id="portfolio" style="margin-top: 100px">
-            <!-- Portfolio Section Heading-->
+            <!-- 경매목록 Section Heading-->
             <div class="container">
-                <!-- Portfolio Section Heading-->
+                <!-- 경매목록 Section Heading-->
                 <div class="text-center">
                     <h2 class="page-section-heading text-secondary mb-0 d-inline-block">경매 목록 </h2>
                 </div>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- Portfolio Grid Items-->
+                <!-- 경매목록 Grid Items-->
                 <div class="row justify-content-center">
-                    <!-- Portfolio Items-->
+                    <!-- 경매목록 Items-->
                     {% for i in product %}
                         <div class="col-md-6 col-lg-4 mb-5">
-                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal"  data-name="{{ i.name }}" data-content="{{ i.content }}">
+                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal" data-img="{{ i.photo.url }}" data-end="{{ i.end_date | date:'Y-m-d H:i:s' }}" data-name="{{ i.name }}" data-content="{{ i.content }}">
                                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                    <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-search-dollar fa-2x"></i></i></div>
+                                    <div class="portfolio-item-caption-content text-center text-white">
+                                        <i class="fas fa-search-dollar fa-2x"></i>
+                                    </div>
                                 </div>
                                 {% if i.photo %}
                                 <img class="img-fluid" src="{{ i.photo.url }}" alt=""/>
@@ -30,34 +34,51 @@
                                 <img class="img-fluid" src="{% static 'assets/img/portfolio/placeholder.png' %}"/>
                                 {% endif %}
                                 <div class="font-weight-bold">
-                                    <span class="float-left blockquote">{{ i.name }}</span><br>
+                                    <span class="float-left blockquote">{{ i.name }}</span>
+                                    <br>
                                     <span class="float-right ">시작 가격:{{ i.min_price | intcomma }}￦</span>
                                 </div>
                             </div>
                         </div>
+                    {% endfor %}
 
-                        <!-- Portfolio Modal -->
+                        <!-- 상품 Modal -->
                         <div class="portfolio-modal modal fade" id="portfolioModal" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-xl" role="document">
                                 <div class="modal-content">
-                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </button>
                                     <div class="modal-body text-center">
                                         <div class="container">
                                             <div class="row justify-content-center">
                                                 <div class="col-lg-8">
-                                                    <!-- Portfolio Modal - Title-->
+                                                    <!-- 상품 Modal - Title-->
                                                     <h2 class="product-name text-secondary mb-0"></h2>
                                                     <!-- Icon Divider-->
                                                     <div class="divider-custom">
                                                         <div class="divider-custom-line"></div>
-                                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                                        <div class="divider-custom-icon">
+                                                            <i class="fas fa-star"></i>
+                                                        </div>
                                                         <div class="divider-custom-line"></div>
                                                     </div>
-                                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="{% static 'assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
-                                                    <!-- Portfolio Modal - Text-->
-                                                    <p class="product-detail mb-5">상품설명</p>
-                                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-check"></i>입찰하기</button>
-                                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>닫기</button>
+                                                    <!-- 상품 Modal - Image-->
+                                                    <img class="img-fluid rounded mb-5" id="modal-image" src="{% static 'assets/img/portfolio/placeholder.png' %}" alt="Log Cabin"/>
+                                                    <!-- 상품 Modal - Text-->
+                                                    <!-- <p class="product-detail mb-5">상품설명</p>-->
+                                                    <p id="product-end-date"></p>
+                                                    <p>{{i.id}}</p>
+
+                                                    <!--<p id="sample01">f</p>-->
+                                                    <button class="btn btn-primary" href="#" data-dismiss="modal">
+                                                        <i class="fas fa-check"></i>입찰하기
+                                                    </button>
+                                                    <button class="btn btn-primary" href="#" data-dismiss="modal">
+                                                        <i class="fas fa-times fa-fw"></i>닫기
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -65,14 +86,17 @@
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
                 </div>
             </div>
         </section>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 <script>
+    // 메인페이지 - 모달(상품 디테일)창
     $(function() {
+
+
         $('#portfolioModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
 
@@ -81,7 +105,89 @@
 
             var content = button.data('content')
             $(".product-detail").html(content)
+
+            var img = button.data('img')
+            $("#modal-image").attr("src", img);
+            console.log("?",img)
+
+            var end = button.data('end')
+
+            //  경매종료날짜 end를 string -> date 로 변환
+            var year = end.substr(0,4)
+            var month = end.substr(5,2)
+            var day = end.substr(8,2)
+            var hour = end.substr(11,2)
+            var minute = end.substr(14,2)
+            var second = end.substr(17,2)
+
+            end = new Date(year, month-1, day, hour, minute, second)
+            // 변환 끝
+
+            countDownTimer('product-end-date', end);
         })
+
+
+
     })
+
+    // DB에서 받아온 end_date를 string -> date 로 변환
+    // function strToDate(id) {
+    //     // var endDate_str = document.getElementById(id).innerText;
+    //
+    //     var year = end.substr(0,4)
+    //     var month = end.substr(5,2)
+    //     var day = end.substr(8,2)
+    //     var hour = end.substr(11,2)
+    //     var minute = end.substr(14,2)
+    //     var second = end.substr(17,2)
+    //
+    //     endDate = new Date(year, month-1, day, hour, minute, second)
+    //     return endDate
+    // }
+
+
+
+
+    // 경매 마감 시간 카운트다운
+    const countDownTimer = function(id, date) {
+        var _vDate = new Date(date);
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var timer;
+
+        function showRemaining() {
+            $('#portfolioModal').on('hidden.bs.modal', function () {
+                document.getElementById(id).textContent = "";
+                clearInterval(timer);
+            });
+
+            var now = new Date();
+            var distDt = _vDate - now;
+
+            if (distDt < 0) {
+                clearInterval(timer);
+                document.getElementById(id).textContent = "입찰이 종료된 상품입니다!";
+                return;
+            }
+
+            var days = Math.floor(distDt / _day);
+            var hours = Math.floor((distDt % _day) / _hour);
+            var minutes = Math.floor((distDt % _hour) / _minute);
+            var seconds = Math.floor((distDt % _minute) / _second);
+
+            document.getElementById(id).textContent = days + '일';
+            document.getElementById(id).textContent += hours + '시간';
+            document.getElementById(id).textContent += minutes + '분';
+            document.getElementById(id).textContent += seconds + '초';
+        }
+        timer = setInterval(showRemaining, 1000);
+    }
+
+    // strToDate('product-end-date');
+    // countDownTimer('product-end-date', endDate);
+
+
 </script>
 {% endblock %}
