@@ -24,7 +24,7 @@
                         <div class="col-md-6 col-lg-4 mb-5">
                             <div class="portfolio-item mx-auto text-center" data-toggle="modal" data-target="#portfolioModal"
                                  data-img="{{ i.photo.url }}" data-end="{{ i.end_date | date:'Y-m-d H:i:s' }}" data-name="{{ i.name }}"
-                                 data-content="{{ i.content }}" data-min="{{ i.min_price }}" data-max="{{ i.max_price }}">
+                                 data-content="{{ i.content }}" data-min="{{ i.min_price }}" data-max="{{ i.max_price }}" data-id="{{i.id}}">
                                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                     <div class="portfolio-item-caption-content text-center text-white">
                                         <i class="fas fa-search-dollar fa-2x"></i>
@@ -111,10 +111,11 @@
                                                              <form method="POST" class="bid-form" action="{% url 'do_bid' %}">
                                                                  {% csrf_token %}
                                                                  <td>
-                                                                    <input type="number" step="1" pattern="\d+" name="bid-value" />
-                                                                     <input type="hidden" id="product-min-val" name="product-min" value="">
-                                                                     <input type="hidden" id="product-max-val" name="product-max" value="">
-                                                                     <button type="submit" class="save btn btn-primary float-right">
+                                                                    <input type="number" step="1" pattern="\d+" id="bid-value" name="bid-value" />
+                                                                     <input type="hidden" id="product-id" name="product-id" value="">
+                                                                     <input type="hidden" id="product-min-val"  name="product-min" value="">
+                                                                     <input type="hidden" id="product-max-val"  name="product-max" value="">
+                                                                     <button type="submit" class="save btn btn-primary float-right" id="b-btn">
                                                                          <i class="fas fa-check"></i>입찰하기
                                                                      </button>
                                                                  </td>
@@ -140,6 +141,10 @@
 
         $('#portfolioModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
+
+            var id = button.data('id')
+            $(".product-id").html(id);
+            $("#product-id").attr("value", id);
 
             var name = button.data('name')
             $(".product-name").html(name)
@@ -176,6 +181,49 @@
 
 
 
+    })
+
+
+    // DB에서 받아온 end_date를 string -> date 로 변환
+    // function strToDate(id) {
+    //     // var endDate_str = document.getElementById(id).innerText;
+    //
+    //     var year = end.substr(0,4)
+    //     var month = end.substr(5,2)
+    //     var day = end.substr(8,2)
+    //     var hour = end.substr(11,2)
+    //     var minute = end.substr(14,2)
+    //     var second = end.substr(17,2)
+    //
+    //     endDate = new Date(year, month-1, day, hour, minute, second)
+    //     return endDate
+    // }
+
+
+    $(document).ready(function(){
+        $('#b-btn').click(function(){
+            var bid_price = Number(document.getElementById('bid-value').value);
+            var min_price=Number(document.getElementById('product-min-val').value);
+            var max_price=Number(document.getElementById('product-max-val').value);
+
+
+            if(min_price>bid_price){
+                alert('최소입찰가보다 적습니다.');
+                return false;
+            }
+            else
+            {
+                if(bid_price>max_price)
+                {
+                    alert('최고가 입찰하였습니다.');
+                }
+                else
+                {
+                    alert('최소입찰가보다는 높지만, 더높은 입찰자들이 존재합니다.');
+                    return false;
+                }
+            }
+        });
     })
 
     // 경매 마감 시간 카운트다운
