@@ -4,23 +4,34 @@ from django.urls import reverse
 from django.contrib.auth.models import User # 장고가 주는 User 모델 
 from django.contrib import auth
 from .models import My_user
+from django.contrib import messages
 import uuid
 import datetime
+
+# 회원가입
 def signup(request):
+    user_db = User.objects.all()
     if request.method == "POST":
+        # 아이디가 존재하면 에러 메세지를 띄워준다.
+        if user_db.filter(username=request.POST["username"]).exists():
+            # messages.error(request, '아이디가 이미 존재합니다.')
+            print('id error')
+            return render(request , 'user/signup.html', {'error':'아이디가 이미 존재합니다.'})
+        
         if request.POST["password1"] == request.POST["password2"]: # 비밀번호가 같으면 회원가입
             user = User.objects.create_user(
                 username=request.POST["username"],password=request.POST["password1"],
                 email=request.POST["email"]
             )
-
             my_user=My_user(user=user,credit=0)
+        
             my_user.save()
-            auth.login(request, user)
-            return redirect('login')
+            # 회원가입이 완료 되었습니다, 로그인 해주세요
+            return redirect('/') # 다른 API로 넘어가는것
         return render(request, 'user/signup.html')
     return render(request, 'user/signup.html')
 
+# 로그인
 def login(request):
     if request.method == "POST":
         username = request.POST["your_name"]
@@ -36,11 +47,13 @@ def login(request):
     else:
         return render(request, 'user/login.html')
 
+# 로그아웃
 def logout(request):
     auth.logout(request)
     # 로그아웃되었습니다. 메세지 띄워주기
     return HttpResponseRedirect('/')
 
+# 마이페이지
 def mypage(request):
     user_id = request.user
     if request.method == "POST":

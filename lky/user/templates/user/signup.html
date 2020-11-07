@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
     {% load static %}
     <title>Sign Up</title>
 
@@ -15,22 +17,35 @@
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
 </head>
 <body>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- toastr js 라이브러리 -->
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {% if error %}
+    <script>toastr.error('{{error}}');</script>
+    {% endif %}
+
+    <!-- 비밀번호 유효성 검사 -->
+    <script type="text/javascript"> 
+        $(function(){
+            $("#alert-success").hide();
+            $("#alert-danger").hide(); 
+            $("input").keyup(function(){ 
+                var pwd1=$("#pass").val(); 
+                var pwd2=$("#re_pass").val(); 
+                if(pwd1 != "" || pwd2 != ""){ 
+                    if(pwd1 == pwd2){ 
+                        $("#alert-danger").hide(); 
+                        $("#submit13").removeAttr("disabled"); 
+                        }else{ 
+                            $("#alert-danger").show(); 
+                            $("#submit13").attr("disabled", "disabled"); 
+                        } 
+                } 
+            }); 
+        }); 
+    </script>
+
     <div class="main">
-
-<!--        <div>-->
-<!--            <form action="{% url 'signup' %}" method="POST">-->
-<!--                {% csrf_token %}-->
-<!--                Username: <input type="text" name="username" id="">-->
-<!--                <br>-->
-<!--                Password: <input type="password" name="password1" id="">-->
-<!--                <br>-->
-<!--                Confirm Password: <input type="password" name="password2" id="">-->
-<!--                <br>-->
-<!--                &lt;!&ndash; <input type="hidden" name="path" value={{request.path}}> &ndash;&gt;-->
-<!--                <input type="submit" value="sign up">-->
-<!--            </form>-->
-<!--        </div>-->
-
     <!-- Sign up form -->
         <section class="signup">
             <div class="container">
@@ -55,12 +70,10 @@
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                                 <input type="password" name="password2" id="re_pass" placeholder="Repeat your password"/>
                             </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                            </div>
+                            <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <input type="submit" name="signup" id="submit13" class="form-submit" value="Register"/>
                             </div>
                         </form>
                     </div>
@@ -71,12 +84,6 @@
                 </div>
             </div>
         </section>
-
-
     </div>
-
-<!-- JS -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="{% static 'js/main.js'%}"></script>
 </body>
 </html>
