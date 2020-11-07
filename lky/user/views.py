@@ -42,10 +42,13 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 def mypage(request):
+    user_id = request.user
     if request.method == "POST":
+        new_email = request.POST["email"]
+        user_id.email = new_email
+        user_id.save()
         return HttpResponseRedirect('/')    
     else:
-        user_id = request.user
         nowuser = My_user.objects.get(user_id=user_id.id)
         print(nowuser.credit)
         context = {'credit' : nowuser.credit }
