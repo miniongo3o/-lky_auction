@@ -16,6 +16,8 @@ from datetime import datetime
 
 def index(request):
     product = Product.objects.all().order_by('-pub_date')[:6]
+    user_id=request.user
+    credit=My_user.objects.get(user_id=user_id.id)
 
     # 경매 마감날짜 지나면 데이터 삭제 - 나중에 테스트해봐야 함
     # today = datetime.now()
@@ -24,7 +26,7 @@ def index(request):
     #         print("경매 마감 -> 데이터 삭제")
     #         p.delete()
 
-    return render(request, 'auction/index.html', {'product': product})
+    return render(request, 'auction/index.html', {'product': product, 'credit':credit})
 
 
 # def auctionRegister(request):
@@ -99,10 +101,13 @@ def do_bid(request):
         product_id=request.POST['product-id']
         now_max = Product.objects.get(id=product_id)
 
-        if input_price>min_price and input_price>max_price:
+        user_id = request.user
+        now_credit = My_user.objects.get(user_id=user_id.id)
+        if input_price>min_price and input_price>max_price and int(now_credit.credit)>int(input_price):
             now_max.max_price = int(input_price)
             now_max.save()
-
+            now_credit.credit =int(now_credit.credit)-int(input_price)
+            now_credit.save()
         return redirect('/')
     else:
         return redirect('/')
