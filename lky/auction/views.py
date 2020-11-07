@@ -95,19 +95,20 @@ def auction_list(request):
 def do_bid(request):
 
     if request.POST:
-        input_price = request.POST['bid-value']
-        min_price = request.POST['product-min']
-        max_price = request.POST['product-max']
+        input_price = int(request.POST['bid-value'])
+        min_price = int(request.POST['product-min'])
+        max_price = int(request.POST['product-max'])
         product_id=request.POST['product-id']
         now_max = Product.objects.get(id=product_id)
 
         user_id = request.user
         now_credit = My_user.objects.get(user_id=user_id.id)
-        if input_price>min_price and input_price>max_price and int(now_credit.credit)>int(input_price):
-            now_max.max_price = int(input_price)
+        if input_price>min_price and input_price>max_price and now_credit.credit>input_price:
+            now_max.max_price = input_price
             now_max.save()
-            now_credit.credit =int(now_credit.credit)-int(input_price)
+            now_credit.credit =int(now_credit.credit)-input_price
             now_credit.save()
+            print(min_price,max_price,input_price,now_credit)
         return redirect('/')
     else:
         return redirect('/')
