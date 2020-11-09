@@ -31,12 +31,13 @@
                 <form class="form-inline" style="margin-left: 15px" method='POST' action="{% url 'index' %}">
                     {% csrf_token %}
                     <!--<input class="form-control mr-sm-2" type="search" placeholder="물품 카테고리 검색" aria-label="Search">-->
+                    <input type="hidden" id="category_id" value="{{category_id}}">
                     <select class="form-control" name="products">
-                        <option value="0">자전거</option>
-                        <option value="1">식기류</option>
-                        <option value="2">전자기기</option>
-                        <option value="3">가구</option>
-                        <option value="4">기타</option>
+                        <option id="category_0" value="0">자전거</option>
+                        <option id="category_1" value="1">식기류</option>
+                        <option id="category_2" value="2">전자기기</option>
+                        <option id="category_3" value="3">가구</option>
+                        <option id="category_4" value="4" >기타</option>
                     </select>
 
 
@@ -134,3 +135,12 @@
         <script src="{% static 'js/scripts.js' %}"></script>
     </body>
 </html>
+<script>
+    $(()=>{
+        var c_id = $("#category_id").attr("value");
+        if (c_id != "None"){
+            var v = "#category_" + c_id
+            $(v).attr("selected", "selected");
+        }
+    })
+</script>
