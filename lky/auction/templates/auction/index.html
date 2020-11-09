@@ -72,42 +72,23 @@
                                                     <!-- 상품 Modal - Text-->
                                                     <table class="table">
                                                         <tr>
-                                                            <td>
-                                                                <div>시작값</div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="product-min"></div>
-                                                            </td>
+                                                            <td><div>시작값</div></td>
+                                                            <td><div class="product-min"></div></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
-                                                                <div>최대값</div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="product-max"></div>
-                                                            </td>
+                                                            <td><div>최대값</div></td>
+                                                            <td><div class="product-max"></div></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
-                                                                <div>남은시간</div>
-                                                            </td>
-                                                            <td>
-                                                                <div id="product-end-date"></div>
-                                                            </td>
+                                                            <td><div>남은시간</div></td>
+                                                            <td><div id="product-end-date"></div></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
-                                                                <div>내용</div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="product-detail"></div>
-                                                            </td>
+                                                            <td><div>내용</div></td>
+                                                            <td><div class="product-detail"></div></td>
                                                         </tr>
-
                                                          <tr>
-                                                            <td>
-                                                                <div>입찰금액</div>
-                                                            </td>
+                                                            <td><div>입찰금액</div></td>
                                                              <form method="POST" class="bid-form" action="{% url 'do_bid' %}">
                                                                  {% csrf_token %}
                                                                  <td>
@@ -206,7 +187,6 @@
             var bid_price = Number(document.getElementById('bid-value').value);
             var min_price=Number(document.getElementById('product-min-val').value);
             var max_price=Number(document.getElementById('product-max-val').value);
-
             var my_credit=Number(document.getElementById('user_credit').value);
 
             if(min_price>bid_price){
