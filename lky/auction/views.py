@@ -13,8 +13,9 @@ import datetime
 
 from datetime import datetime
 
+
 def index(request):
-    category_id = request.POST.get("products")
+      category_id = request.POST.get("products")
     if category_id is not None:
         product = Product.objects.filter(category=category_id).order_by('-pub_date')[:6]
     else:
@@ -23,7 +24,18 @@ def index(request):
     user_id=request.user
     # credit=My_user.objects.get(user_id=user_id.id)
 
-    # return render(request, 'auction/index.html', {'product': product, 'credit':credit})
+#     product = Product.objects.filter(visible_status=True).order_by('-pub_date')[:6]
+#     user_id=request.user
+#     credit=My_user.objects.get(user_id=user_id.id)
+
+    # 경매 마감시 visible_status = False 로 변환
+    today = datetime.now()
+    for p in product:
+        if p.end_date < today:
+            p.visible_status = False
+            p.save()
+
+#     return render(request, 'auction/index.html', {'product': product, 'credit': credit})
     return render(request, 'auction/index.html', {'product': product})
 
 
