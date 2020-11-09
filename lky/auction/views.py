@@ -22,11 +22,6 @@ def index(request):
         product = Product.objects.all().order_by('-pub_date')[:6]
 
     user_id = request.user
-    # credit=My_user.objects.get(user_id=user_id.id)
-
-    #     product = Product.objects.filter(visible_status=True).order_by('-pub_date')[:6]
-    #     user_id=request.user
-    #     credit=My_user.objects.get(user_id=user_id.id)
 
     # 경매 마감시 visible_status = False 로 변환
     today = datetime.now()
@@ -34,14 +29,23 @@ def index(request):
         if p.end_date < today:
             p.visible_status = False
             p.save()
+            
     user_check=request.user.id
     if user_check is not None:
         credit=My_user.objects.get(user_id=user_check)
-        return render(request, 'auction/index.html', {'product': product, 'credit': credit})
-    else:
-        print('no user')
-    #     return render(request, 'auction/index.html', {'product': product, 'credit': credit})
-    return render(request, 'auction/index.html', {'product': product})
+        context = {
+          'product': product,
+          'category_id': category_id,
+          'credit': credit
+        }        
+      
+    else:        
+        context = {
+          'product': product,
+          'category_id': category_id,
+        }
+        
+    return render(request, 'auction/index.html', context)
 
 
 def auctionRegister(request):
