@@ -98,9 +98,19 @@
                                                                      <input type="hidden" id="product-min-val"  name="product-min" value="">
                                                                      <input type="hidden" id="product-max-val"  name="product-max" value="">
                                                                      <input type="hidden" id="user_credit" value={{credit}}>
+                                                                     {% if user.is_active %}
                                                                      <button type="submit" class="save btn btn-primary float-right" id="b-btn">
                                                                          <i class="fas fa-check"></i>입찰하기
                                                                      </button>
+                                                                     {% else %}
+                                                                     <br><br>
+                                                                     <a><b>입찰하려면 로그인이 필요합니다!</b></a>
+                                                                     <a href="{% url 'login' %}">
+                                                                         <button type="button" class="save btn btn-primary float-right">
+                                                                        <i class="fas fa-check"></i>로그인하기
+                                                                        </button>
+                                                                    </a>
+                                                                    {% endif %}
                                                                  </td>
                                                              </form>
                                                         </tr>
