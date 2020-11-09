@@ -103,8 +103,7 @@
                                                                 <div class="product-detail"></div>
                                                             </td>
                                                         </tr>
-
-                                                         <tr>
+                                                         <tr id="bidForm">
                                                             <td>
                                                                 <div>입찰금액</div>
                                                             </td>
@@ -245,6 +244,7 @@
         var _day = _hour * 24;
         var timer;
 
+
         function showRemaining() {
             $('#portfolioModal').on('hidden.bs.modal', function () {
                 document.getElementById(id).textContent = "";
@@ -257,6 +257,11 @@
             if (distDt < 0) {
                 clearInterval(timer);
                 document.getElementById(id).textContent = "입찰이 종료된 상품입니다!";
+                $(function() {
+                    $("#bidForm").css({
+                        "visibility": "hidden"
+                    });
+                });
                 return;
             }
 

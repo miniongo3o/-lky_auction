@@ -14,19 +14,20 @@ import datetime
 # Create your views here.
 from datetime import datetime
 
+
 def index(request):
-    product = Product.objects.all().order_by('-pub_date')[:6]
+    product = Product.objects.filter(visible_status=True).order_by('-pub_date')[:6]
     user_id=request.user
     credit=My_user.objects.get(user_id=user_id.id)
 
-    # 경매 마감날짜 지나면 데이터 삭제 - 나중에 테스트해봐야 함
-    # today = datetime.now()
-    # for p in product:
-    #     if p.end_date < today:
-    #         print("경매 마감 -> 데이터 삭제")
-    #         p.delete()
+    # 경매 마감시 visible_status = False 로 변환
+    today = datetime.now()
+    for p in product:
+        if p.end_date < today:
+            p.visible_status = False
+            p.save()
 
-    return render(request, 'auction/index.html', {'product': product, 'credit':credit})
+    return render(request, 'auction/index.html', {'product': product, 'credit': credit})
 
 
 # def auctionRegister(request):

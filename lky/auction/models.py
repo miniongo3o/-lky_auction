@@ -27,6 +27,8 @@ class Product(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     # 대분류
     category = models.CharField(max_length=60, default='')
-    
+    # 마감유무(True=진행중 / False=마감)
+    visible_status = models.BooleanField(default=True)
+
     def __str__(self):
         return self.name
