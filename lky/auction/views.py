@@ -29,13 +29,22 @@ def index(request):
         if p.end_date < today:
             p.visible_status = False
             p.save()
-
-    context = {
-        'product': product,
-        'category_id': category_id,
-    }
-
-    #     return render(request, 'auction/index.html', {'product': product, 'credit': credit})
+            
+    user_check=request.user.id
+    if user_check is not None:
+        credit=My_user.objects.get(user_id=user_check)
+        context = {
+          'product': product,
+          'category_id': category_id,
+          'credit': credit
+        }        
+      
+    else:        
+        context = {
+          'product': product,
+          'category_id': category_id,
+        }
+        
     return render(request, 'auction/index.html', context)
 
 
@@ -86,22 +95,49 @@ def charging(request):
 #     return render(request, product)
 
 def do_bid(request):
+
     if request.POST:
-        # attr 없으면 에러뜨게 함. 때문에 형식을 지키지 않은 POST는 막힘.
         input_price = int(request.POST['bid-value'])
         min_price = int(request.POST['product-min'])
         max_price = int(request.POST['product-max'])
         product_id=request.POST['product-id']
         now_max = Product.objects.get(id=product_id)
-
+        print(product_id,'!!!!!!!',now_max.id)
         user_id = request.user
         now_credit = My_user.objects.get(user_id=user_id.id)
+        print(user_id,now_credit)
         if input_price>min_price and input_price>max_price and now_credit.credit>input_price:
-            now_max.max_price = input_price
-            now_max.save()
-            now_credit.credit =int(now_credit.credit)-input_price
-            now_credit.save()
-            print(min_price,max_price,input_price,now_credit)
+                #입찰자가 없을 떄
+            if now_max.last_bidder_id==None:
+                now_max.max_price = input_price
+                now_max.last_bidder_id=user_id.id
+                now_max.save()
+                now_credit.credit = int(now_credit.credit) - input_price
+                now_credit.save()
+
+                # 입찰자 재입찰자 같을 때
+            elif user_id.id == now_max.last_bidder_id:
+                difference=input_price-max_price
+                now_max.max_price = input_price
+                now_max.save()
+                now_credit.credit = int(now_credit.credit) - difference
+                now_credit.save()
+            else:
+                # 입찰자 재입찰자 다를 때
+                retrunCredit_id=now_max.last_bidder_id
+                returnCredit_credit=now_max.max_price
+                print(retrunCredit_id)
+                returnCredit_user =My_user.objects.get(user_id=retrunCredit_id)
+                print('456456456')
+                returnCredit_user.credit=int(returnCredit_user.credit)+int(returnCredit_credit)
+                returnCredit_user.save()
+
+                now_max.max_price = input_price
+                now_max.last_bidder_id=user_id.id
+                now_max.save()
+                now_credit.credit = int(now_credit.credit) - input_price
+                now_credit.save()
+
         return redirect('/')
     else:
         return redirect('/')
