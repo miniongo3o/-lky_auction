@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- toastr js 관련 -->
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 
     {% load static %}
@@ -24,27 +25,6 @@
     <script>toastr.error('{{error}}');</script>
     {% endif %}
 
-    <!-- 비밀번호 유효성 검사 -->
-    <script type="text/javascript"> 
-        $(function(){
-            $("#alert-success").hide();
-            $("#alert-danger").hide(); 
-            $("input").keyup(function(){ 
-                var pwd1=$("#pass").val(); 
-                var pwd2=$("#re_pass").val(); 
-                if(pwd1 != "" || pwd2 != ""){ 
-                    if(pwd1 == pwd2){ 
-                        $("#alert-danger").hide(); 
-                        $("#submit13").removeAttr("disabled"); 
-                        }else{ 
-                            $("#alert-danger").show(); 
-                            $("#submit13").attr("disabled", "disabled"); 
-                        } 
-                } 
-            }); 
-        }); 
-    </script>
-
     <div class="main">
     <!-- Sign up form -->
         <section class="signup">
@@ -54,6 +34,7 @@
                         <h2 class="form-title">Sign up</h2>
                         <form action="{% url 'signup' %}" method="POST" class="register-form" id="register-form">
                             {% csrf_token %}
+                            <div class="alert alert-danger" id="alert-danger2"> 모든 정보를 입력해주세요.</div>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="username" id="name" placeholder="Your Name"/>
@@ -62,6 +43,7 @@
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="email" name="email" id="email" placeholder="Your Email"/>
                             </div>
+                            
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                                 <input type="password" name="password1" id="pass" placeholder="Password"/>
@@ -70,7 +52,7 @@
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                                 <input type="password" name="password2" id="re_pass" placeholder="Repeat your password"/>
                             </div>
-                            <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+                            <div class="alert alert-danger" id="alert-danger" style="color: red;">비밀번호가 일치하지 않습니다.</div>
 
                             <div class="form-group form-button">
                                 <input type="submit" name="signup" id="submit13" class="form-submit" value="Register"/>
@@ -85,10 +67,35 @@
             </div>
         </section>
     </div>
-    <script>
-        $("#submit13").on("click", function(){
-        toastr.success('회원가입 되었습니다. \n 로그인해주세요!!', {timeOut: 3000});
-        });
+    
+    <!-- 비밀번호, 정보 유효성 검사 -->
+    <script type="text/javascript"> 
+        $(function(){
+            $("#alert-success").hide();
+            $("#alert-danger").hide(); 
+            $("#alert-danger2").hide(); 
+            $("#submit13").attr("disabled", "disabled");
+            $("input").keyup(function(){ 
+                var pwd1=$("#pass").val(); 
+                var pwd2=$("#re_pass").val(); 
+                var user_id=$("#name").val();
+                var email=$("#email").val();
+                // 정보중 하나라도 비었으면
+                if( user_id == "" || email == "" || pwd1 == "" || pwd2 == ""){
+                    $("#alert-danger2").show();
+                    $("#submit13").attr("disabled", "disabled"); // 비활성화
+                }else{
+                    $("#alert-danger2").hide();
+                    if(pwd1 == pwd2){ //비밀 번호가 같아야 넘어갈 수 있다.
+                        $("#alert-danger").hide(); 
+                        $("#submit13").removeAttr("disabled");
+                    }else{
+                        $("#alert-danger").show(); 
+                        $("#submit13").attr("disabled", "disabled");
+                    }
+                }
+            }); 
+        }); 
     </script>
 </body>
 </html>
