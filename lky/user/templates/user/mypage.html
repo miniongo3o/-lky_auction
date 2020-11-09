@@ -1,4 +1,5 @@
 {% extends 'auction/base.html' %}
+{% load humanize %}
 {% block content %}
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />  
     
@@ -33,7 +34,7 @@
                                     </tr>
                                     <tr>
                                         <td>크래딧</td>
-                                        <td><a href="{% url 'auction_credit' %}"><input type="text" value= {{credit}} disabled><button type="button"  class="btn btn-success float-right">충전하기</button></a></td>
+                                        <td><a href="{% url 'auction_credit' %}"><input type="text" value= {{credit | intcomma }} disabled><button type="button"  class="btn btn-success float-right">충전하기</button></a></td>
                                     </tr>
                                     <tr>
                                         <td></td>
