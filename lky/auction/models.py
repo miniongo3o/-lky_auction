@@ -29,6 +29,6 @@ class Product(models.Model):
     category = models.CharField(max_length=60, default='')
     # 마감유무(True=진행중 / False=마감)
     visible_status = models.BooleanField(default=True)
-
+    last_bidder_id=models.IntegerField(blank=True, null=True)
     def __str__(self):
         return self.name
