@@ -28,7 +28,7 @@
             <div class="container"><a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}">이경영</a>
 <!--                <form class="form-inline" style="margin-left: 15px">-->
 <!--                    <input class="form-control mr-sm-2" type="search" placeholder="물품 카테고리 검색" aria-label="Search">-->
-                <form class="form-inline" style="margin-left: 15px" method='POST' action="{% url 'auction_list' %}">
+                <form class="form-inline" style="margin-left: 15px" method='POST' action="{% url 'index' %}">
                     {% csrf_token %}
                     <!--<input class="form-control mr-sm-2" type="search" placeholder="물품 카테고리 검색" aria-label="Search">-->
                     <select class="form-control" name="products">
