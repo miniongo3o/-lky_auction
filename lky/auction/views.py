@@ -14,7 +14,6 @@ import datetime
 from datetime import datetime
 
 def index(request):
-    # category_id = request.POST.get("products")
     category_id = request.POST.get("products")
     if category_id is not None:
         product = Product.objects.filter(category=category_id).order_by('-pub_date')[:6]

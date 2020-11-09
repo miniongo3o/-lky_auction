@@ -35,18 +35,5 @@ class registerForm(forms.Form):
         else:
             return post
 
-    # name = forms.CharField(max_length=10, widget=forms.TextInput(
-    #     attrs={
-    #         'class': 'form-control form-control-user',
-    #         'placeholder': '이름',
-    #     }
-    # ))
-    #
-    # my_category = forms.ChoiceField(choices=CATEGORY_CHOICE, widget=forms.Select(
-    #     choices=CATEGORY_CHOICE,
-    #     attrs={
-    #         '카테고리': 'form-control form-control',
-    #         'placeholder': '카테고리 선택',
-    #     }
-    # ))
+
 
