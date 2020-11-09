@@ -44,7 +44,7 @@
                         </div>
                     {% endfor %}
 
-                        <!-- 상품 Modal -->
+                        <!-- 경매 상품 Modal -->
                         <div class="portfolio-modal modal fade" id="portfolioModal" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-xl" role="document">
                                 <div class="modal-content">
@@ -57,7 +57,7 @@
                                         <div class="container">
                                             <div class="row justify-content-center">
                                                 <div class="col-lg-8">
-                                                    <!-- 상품 Modal - Title-->
+                                                    <!-- 경매 상품 Modal - Title-->
                                                     <h2 class="product-name text-secondary mb-0"></h2>
                                                     <!-- Icon Divider-->
                                                     <div class="divider-custom">
@@ -67,46 +67,29 @@
                                                         </div>
                                                         <div class="divider-custom-line"></div>
                                                     </div>
-                                                    <!-- 상품 Modal - Image-->
+                                                    <!-- 경매 상품 Modal - Image-->
                                                     <img class="img-fluid rounded mb-5" id="modal-image" src="{% static 'assets/img/portfolio/placeholder.png' %}" alt="Log Cabin"/>
-                                                    <!-- 상품 Modal - Text-->
+                                                    <!-- 경매 상품 Modal - Text-->
                                                     <table class="table">
                                                         <tr>
-                                                            <td>
-                                                                <div>시작값</div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="product-min"></div>
-                                                            </td>
+                                                            <td><div>시작값</div></td>
+                                                            <td><div class="product-min"></div></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
-                                                                <div>최대값</div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="product-max"></div>
-                                                            </td>
+                                                            <td><div>최대값</div></td>
+                                                            <td><div class="product-max"></div></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
-                                                                <div>남은시간</div>
-                                                            </td>
-                                                            <td>
-                                                                <div id="product-end-date"></div>
-                                                            </td>
+                                                            <td><div>남은시간</div></td>
+                                                            <td><div id="product-end-date"></div></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
-                                                                <div>내용</div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="product-detail"></div>
-                                                            </td>
+                                                            <td><div>내용</div></td>
+                                                            <td><div class="product-detail"></div></td>
                                                         </tr>
+
                                                          <tr id="bidForm">
-                                                            <td>
-                                                                <div>입찰금액</div>
-                                                            </td>
+                                                            <td><div>입찰금액</div></td>
                                                              <form method="POST" class="bid-form" action="{% url 'do_bid' %}">
                                                                  {% csrf_token %}
                                                                  <td>
@@ -138,7 +121,6 @@
 <script>
     // 메인페이지 - 모달(상품 디테일)창
     $(function() {
-
         $('#portfolioModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
 
@@ -178,56 +160,30 @@
 
             countDownTimer('product-end-date', end);
         })
-
-
-
     })
-
-
-    // DB에서 받아온 end_date를 string -> date 로 변환
-    // function strToDate(id) {
-    //     // var endDate_str = document.getElementById(id).innerText;
-    //
-    //     var year = end.substr(0,4)
-    //     var month = end.substr(5,2)
-    //     var day = end.substr(8,2)
-    //     var hour = end.substr(11,2)
-    //     var minute = end.substr(14,2)
-    //     var second = end.substr(17,2)
-    //
-    //     endDate = new Date(year, month-1, day, hour, minute, second)
-    //     return endDate
-    // }
-
 
     $(document).ready(function(){
         $('#b-btn').click(function(){
             var bid_price = Number(document.getElementById('bid-value').value);
             var min_price=Number(document.getElementById('product-min-val').value);
             var max_price=Number(document.getElementById('product-max-val').value);
-
             var my_credit=Number(document.getElementById('user_credit').value);
 
             if(min_price>bid_price){
                 alert('최소입찰가보다 적습니다.');
                 return false;
             }
-            else
-            {
-                if(bid_price>max_price)
-                {
-                    if( my_credit>bid_price)
-                    {
+            else {
+                if(bid_price>max_price) {
+                    if( my_credit>bid_price) {
                         alert('최고가 입찰하였습니다.');
                     }
-                    else
-                    {
+                    else {
                         alert('크레딧이 부족해요.');
                         return false;
                     }
                 }
-                else
-                {
+                else {
                     alert('최소입찰가보다는 높지만, 더높은 입찰자들이 존재합니다.');
                     return false;
                 }

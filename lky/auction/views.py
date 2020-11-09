@@ -11,14 +11,22 @@ from PIL import Image
 import uuid
 import datetime
 
-# Create your views here.
 from datetime import datetime
 
 
 def index(request):
-    product = Product.objects.filter(visible_status=True).order_by('-pub_date')[:6]
+      category_id = request.POST.get("products")
+    if category_id is not None:
+        product = Product.objects.filter(category=category_id).order_by('-pub_date')[:6]
+    else:
+        product = Product.objects.all().order_by('-pub_date')[:6]
+
     user_id=request.user
-    credit=My_user.objects.get(user_id=user_id.id)
+    # credit=My_user.objects.get(user_id=user_id.id)
+
+#     product = Product.objects.filter(visible_status=True).order_by('-pub_date')[:6]
+#     user_id=request.user
+#     credit=My_user.objects.get(user_id=user_id.id)
 
     # 경매 마감시 visible_status = False 로 변환
     today = datetime.now()
@@ -27,14 +35,11 @@ def index(request):
             p.visible_status = False
             p.save()
 
-    return render(request, 'auction/index.html', {'product': product, 'credit': credit})
+#     return render(request, 'auction/index.html', {'product': product, 'credit': credit})
+    return render(request, 'auction/index.html', {'product': product})
 
-
-# def auctionRegister(request):
-#     return render(request, 'auction/auction_register.html')
 
 def auctionRegister(request):
-    # return render(request, 'auction/auction_register.html')
     if request.method == 'POST':
         file_data = request.FILES
         file_name = file_data['photo'].name
@@ -42,6 +47,7 @@ def auctionRegister(request):
         f_type_list = list(file_name)[idx:]
         f_type = ''.join(f_type_list)
         data_name = str(datetime.now())[:10] + '-' + str(uuid.uuid1()) + f_type
+
         file_data['photo'].name = data_name
         form = registerForm(request.POST, request.FILES)
 
@@ -49,8 +55,6 @@ def auctionRegister(request):
             prod = form.save(commit=False)
             thumbnail_name = 'thumbnail-' + data_name
             prod.thumbnail = thumbnail_name
-            # prod.author = request.user
-            # prod.published_date = timezone.now()
             prod.save()
             img = Image.open(settings.MEDIA_ROOT + data_name)
             img_resize = img.resize((int(img.width / (img.height / 240)), 240))
@@ -62,18 +66,14 @@ def auctionRegister(request):
 
     return render(request, 'auction/auction_register.html', {'form': form})
 
-
-
 # 홈 상단 바 - 크레딧 충전 클릭
 def auction_credit(request):
     return render(request,'auction/auction_credit.html')
-
 
 # auction_credit.html에서 실행할 충전 함수
 # 현재 로그인 중인 auth_user의 id에 해당하는 크레딧을 50000원 증가시킨다.
 def charging(request):
     user_id=request.user
-    print(user_id.id)
 
     now_credit=My_user.objects.get(user_id=user_id.id)
     now_credit.credit=int(now_credit.credit)+50000
@@ -85,17 +85,9 @@ def charging(request):
 #     product = Product
 #     return render(request, product)
 
-
-def auction_list(request):
-    id = request.POST.get("products", None)
-    print(id)
-    product=Product.objects.filter(category=id).order_by('-pub_date')[:6]
-    print(product)
-    return render(request,'auction/auction_list.html',{"product":product})
-
 def do_bid(request):
-
     if request.POST:
+        # attr 없으면 에러뜨게 함. 때문에 형식을 지키지 않은 POST는 막힘.
         input_price = int(request.POST['bid-value'])
         min_price = int(request.POST['product-min'])
         max_price = int(request.POST['product-max'])
