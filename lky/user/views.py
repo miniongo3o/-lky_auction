@@ -14,7 +14,6 @@ def signup(request):
     if request.method == "POST":
         # 아이디가 존재하면 에러 메세지를 띄워준다.
         if user_db.filter(username=request.POST["username"]).exists():
-            # messages.error(request, '아이디가 이미 존재합니다.')
             print('id error')
             return render(request , 'user/signup.html', {'error':'아이디가 이미 존재합니다.'})
         
@@ -27,7 +26,8 @@ def signup(request):
         
             my_user.save()
             # 회원가입이 완료 되었습니다, 로그인 해주세요
-            return redirect('/') # 다른 API로 넘어가는것
+            # return redirect('/') # 다른 API로 넘어가는것
+            return render(request, 'user/login.html', {'success' : '회원가입이 완료되었습니다. \n 로그인 해주세요!!!'})
         return render(request, 'user/signup.html')
     return render(request, 'user/signup.html')
 

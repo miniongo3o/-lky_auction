@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- toastr js 관련 -->
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
     {% load static %}
-    <title>Sign Up</title>
+    <title>Login</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css'%}">
@@ -15,25 +18,13 @@
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
 </head>
 <body>
+    <!-- toastr js 라이브러리 -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {% if success %}
+    <script>toastr.success('회원가입 되었습니다. \n 로그인해주세요!!', {timeOut: 3000});</script>
+    {% endif %}
     <div class="main">
-
-<!--        <div>-->
-<!--            {% if error %}-->
-<!--            {{ error }}-->
-<!--            {% endif %}-->
-<!--          &lt;!&ndash; 로그인 실패했을 때 띄울 메시지 &ndash;&gt;-->
-
-<!--            <form action="{% url 'login' %}" method="POST">-->
-<!--                {% csrf_token %}-->
-<!--                Username: <input type="text" name="username" id="">-->
-<!--                <br>-->
-<!--                Password: <input type="password" name="password" id="">-->
-<!--                <br>-->
-<!--                <input type="submit" value="login" id="">-->
-<!--            </form>-->
-
-<!--            <a href="{% url 'signup'%}">회원가입</a>-->
-<!--        </div>-->
 
     <!-- Sing in  Form -->
         <section class="sign-in">
