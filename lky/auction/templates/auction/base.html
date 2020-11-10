@@ -18,6 +18,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
          {% load static %}
         <link href="{% static 'css/styles.css'%}" rel="stylesheet">
+        <link href="{% static 'css/auction.css'%}" rel="stylesheet">
         <!-- Fonts CSS-->
         <link rel="stylesheet" href="{% static 'css/heading.css'%}">
         <link rel="stylesheet" href="{% static 'css/body.css'%}">
@@ -48,10 +49,10 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         {% if user.is_authenticated %}
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'mypage' %}">{{user.username}} 님, 안녕하세요!</a>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'auction_register' %}">경매등록</a>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'mypage' %}">{{user.username}} 님, 안녕하세요!</a>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'auction_register' %}">경매등록</a>
                         </li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'auction_credit' %}">크레딧 충전</a>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'auction_credit' %}">크레딧 충전</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'logout'%}">로그아웃</a>
                         </li>
@@ -65,15 +66,95 @@
                 </div>
             </div>
         </nav>
-        <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="secondNav" style="margin-top: 80px;">
+        <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="nav_category">
             <div class="collapse navbar-collapse">
-                <ul class="navbar-nav offset-lg-3">
-                    <li class="nav-item mx-0 mx-lg-1"><a id="category_0" style="margin-right: 30px" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="./?category=0">디지털/가전</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a id="category_1" style="margin-right: 30px" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="./?category=1">가구/인테리어</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a id="category_2" style="margin-right: 30px" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="./?category=2">생활용품</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a id="category_3" style="margin-right: 30px" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="./?category=3">의류</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a id="category_4" style="margin-right: 30px" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="./?category=4">게임/취미</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a id="category_5" style="margin-right: 30px" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="./?category=5">도서/티켓/음반</a></li>
+                <ul class="navbar-nav offset-lg-3" id="category_list">
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button type="button" class="category_btn" id="category_0" onclick="location.href='./?category=0'">디지털/가전</button>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button type="button" class="category_btn" id="category_1" onclick="location.href='./?category=1'">가구/인테리어</button>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button type="button" class="category_btn" id="category_2" onclick="location.href='./?category=2'">생활용품</button>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button type="button" class="category_btn" id="category_3" onclick="location.href='./?category=3'">의류</button>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button type="button" class="category_btn" id="category_4" onclick="location.href='./?category=4'">게임/취미</button>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button type="button" class="category_btn" id="category_5" onclick="location.href='./?category=5'">도서/티켓/음반</button>-->
+<!--                    </li>-->
+
+
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button class="category_btn"><a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a></button>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button class="category_btn"><a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="./?category=1">가구/인테리어</a></button>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button class="category_btn"><a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="./?category=2">생활용품</a></button>-->
+<!--                    </li>-->
+
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button class="category_btn"><a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="./?category=3">의류</a></button>-->
+<!--                    </li>-->
+
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button class="category_btn"><a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="./?category=4">게임/취미</a></button>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <button class="category_btn"><a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="./?category=5">도서/티켓/음반</a></button>-->
+<!--                    </li>-->
+
+
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="./?category=1">가구/인테리어</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="./?category=2">생활용품</a>-->
+<!--                    </li>-->
+
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="./?category=3">의류</a>-->
+<!--                    </li>-->
+
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="./?category=4">게임/취미</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mx-0 mx-lg-1">-->
+<!--                        <a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="./?category=5">도서/티켓/음반</a>-->
+<!--                    </li>-->
+
+
+
+
+                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=0'">
+                        <a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=1'">
+                        <a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="./?category=1">가구/인테리어</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=2'">
+                        <a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="./?category=2">생활용품</a>
+                    </li>
+
+                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=3'">
+                        <a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="./?category=3">의류</a>
+                    </li>
+
+                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=4'">
+                        <a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="./?category=4">게임/취미</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=5'">
+                        <a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="./?category=5">도서/티켓/음반</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -81,36 +162,6 @@
 
         {% endblock %}
 
-<!--        <section class="page-section" id="contact">-->
-<!--            <div class="container">-->
-<!--                &lt;!&ndash; Contact Section Heading&ndash;&gt;-->
-<!--                <div class="text-center">-->
-<!--                    <h2 class="page-section-heading text-secondary d-inline-block mb-0">CONTACT</h2>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--                <div class="divider-custom">-->
-<!--                    <div class="divider-custom-line"></div>-->
-<!--                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>-->
-<!--                    <div class="divider-custom-line"></div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; Contact Section Content&ndash;&gt;-->
-<!--                <div class="row justify-content-center">-->
-<!--                    <div class="col-lg-4">-->
-<!--                        <div class="d-flex flex-column align-items-center">-->
-<!--                            <div class="icon-contact mb-3"><i class="fas fa-mobile-alt"></i></div>-->
-<!--                            <div class="text-muted">Phone</div>-->
-<!--                            <div class="lead font-weight-bold">(010) 1234-5678</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-4">-->
-<!--                        <div class="d-flex flex-column align-items-center">-->
-<!--                            <div class="icon-contact mb-3"><i class="far fa-envelope"></i></div>-->
-<!--                            <div class="text-muted">Email</div><a class="lead font-weight-bold" href="mailto:name@example.com">dlalsdyd094@naver.com</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
         <footer class="footer text-center">
             <div class="container">
                 <div class="row">
@@ -146,12 +197,39 @@
         <script src="{% static 'js/scripts.js' %}"></script>
     </body>
 </html>
+
 <script>
-    // $(()=>{
-    //     var c_id = $("#category_id").attr("value");
-    //     if (c_id != "None"){
-    //         var v = "#category_" + c_id
-    //         $(v).attr("selected", "selected");
-    //     }
-    // })
+    // const category_btn = document.querySelector(".category_btn");
+
+    // $('.category_btn').on('click', function() {
+    //     console.log('왜이래');
+    //     $('.category_btn').removeClass('selected');
+    //     $('.category_btn').addClass('selected');
+    // });
+
+
+    // 클릭한 카테고리의 글자색 바뀜 하지만 페이지이동이안됨
+    // url이동 한 다음에는 아래 함수가 적용이 안되는 것 같음
+
+    // function myfunction(){
+    //     var sBtn = $("#category_list > li");
+    //     sBtn.find("a").click(function (){
+    //         console.log("asdf");
+    //         sBtn.removeClass("active");
+    //         $(this).parent().addClass("active");
+    //         return false;
+    //     })
+    // }
+
+    $(function(){
+        var sBtn = $("#category_list > li");
+        sBtn.find("a").click(function (){
+            console.log("asdf");
+            sBtn.removeClass("active");
+            $(this).parent().addClass("active");
+            return false;
+        })
+    })
+
+
 </script>

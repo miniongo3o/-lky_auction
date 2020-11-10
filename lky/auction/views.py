@@ -19,12 +19,11 @@ def index(request):
     category_id = request.GET.get("category")
     print(category_id)
     if category_id is not None:
-        product = Product.objects.filter(Q(category=category_id) | Q(visible_status='True')).order_by('-pub_date')[:6]
-        print(product)
+        product = Product.objects.filter(Q(category=category_id) & Q(visible_status='True')).order_by('-pub_date')[:6]
     else:
         product = Product.objects.filter(visible_status='True').order_by('-pub_date')[:6]
 
-    user_id = request.user
+    user_id = request.user  # 이거지워도되나요
 
     # 경매 마감시 visible_status = False 로 변환
     today = datetime.now()
@@ -78,9 +77,11 @@ def auctionRegister(request):
 
     return render(request, 'auction/auction_register.html', {'form': form})
 
+
 # 홈 상단 바 - 크레딧 충전 클릭
 def auction_credit(request):
     return render(request,'auction/auction_credit.html')
+
 
 # auction_credit.html에서 실행할 충전 함수
 # 현재 로그인 중인 auth_user의 id에 해당하는 크레딧을 50000원 증가시킨다.
