@@ -11,8 +11,6 @@ class registerForm(forms.Form):
     category_list = ['자전거', '식기류', '전자기기', '가구', '기타']
     CATEGORY_CHOICE = tuple(enumerate(category_list))
 
-    # author = models.ForeignKey(MyUser, on_delete=models.CASCADE) #작성자
-
     # 제목 최소 세글자 이상
     name = forms.CharField(label= "제목", validators=[min_length_3_validator])
 
