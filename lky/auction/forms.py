@@ -8,7 +8,7 @@ def min_length_3_validator(value):
 
 
 class registerForm(forms.Form):
-    category_list = ['자전거', '식기류', '전자기기', '가구', '기타']
+    category_list = ['디지털/가전', '가구/인테리어', '생활용품', '의류', '게임/취미', '도서/티켓/음반']
     CATEGORY_CHOICE = tuple(enumerate(category_list))
 
     # author = models.ForeignKey(MyUser, on_delete=models.CASCADE) #작성자

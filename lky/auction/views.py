@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render,redirect
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -16,10 +17,14 @@ from datetime import datetime
 
 def index(request):
     category_id = request.POST.get("products")
-    if category_id is not None:
-        product = Product.objects.filter(category=category_id).order_by('-pub_date')[:6]
-    else:
-        product = Product.objects.all().order_by('-pub_date')[:6]
+    print(category_id)
+    # if category_id is not None:
+    #     product = Product.objects.filter(Q(category=category_id) | Q(visible_status='True')).order_by('-pub_date')[:6]
+    #     print(product)
+    # else:
+    #     product = Product.objects.filter(visible_status='True').order_by('-pub_date')[:6]
+
+    product = Product.objects.filter(visible_status='True').order_by('-pub_date')[:6]
 
     user_id = request.user
 
@@ -30,7 +35,7 @@ def index(request):
             p.visible_status = False
             p.save()
             
-    user_check=request.user.id
+    user_check = request.user.id
     if user_check is not None:
         credit=My_user.objects.get(user_id=user_check)
         context = {
