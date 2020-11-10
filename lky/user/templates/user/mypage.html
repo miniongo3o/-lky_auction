@@ -8,7 +8,7 @@
             <div class="container">
                 <!-- 경매등록 Section Heading-->
                 <div class="text-center">
-                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">MY PAGE </h2>
+                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">MY PAGE </h2>
                 </div>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
@@ -30,18 +30,54 @@
                                     </tr>
                                     <tr>
                                         <td>이메일</td>
-                                        <td><input name="email" type="text" value= {{user.email}}></td>
+                                        <td><input name="email" type="text" value= {{user.email}}><button id="submit" type="submit" class="save btn btn-info float-right" style="height:40px; width:140px;">변경사항 저장</button></td>
                                     </tr>
                                     <tr>
                                         <td>크래딧</td>
-                                        <td><a href="{% url 'auction_credit' %}"><input type="text" value= {{credit | intcomma }} disabled><button type="button"  class="btn btn-success float-right">충전하기</button></a></td>
+                                        <td><a href="{% url 'auction_credit' %}"><input type="text" value= {{credit | intcomma }} disabled><button type="button"  class="btn btn-success float-right" style="height:40px; width:140px;">충전하기</button></a></td>
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td ><button id="submit" type="submit" class="save btn btn-info float-right" >변경사항 저장</button></td>
+                                        <td ></td>
                                     </tr>
                                 </table>
                             </form>
+                            <div class="text-center">
+                                <h2 class="page-section-heading text-secondary mb-0 d-inline-block">나의 입찰 목록 </h2>
+                            </div>
+                            <div class="divider-custom">
+                                <div class="divider-custom-line"></div>
+                                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                <div class="divider-custom-line"></div>
+                            </div>
+                            {% if now_product %}
+                            <table class="n-table table-col">
+                               <colgroup>
+                                   <col style="width:14.2%">
+                                   <col style="width:14.2%">
+                                   <col style="width:35%">
+                               </colgroup>
+                                <thead align="center">
+                                    <th scope="col">상품명</th>
+                                    <th scope="col">입찰가</th>
+                                    <th scope="col">마감일</th>
+                                </thead>
+                                <tbody align="center">
+
+                                {% for i in now_product %}
+                                 <tr>
+                                    <td>{{i.name}}</td>
+                                    <td>{{i.max_price}}</td>
+                                    <td>{{i.end_date}}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <div class="text-center">
+                                <h5 class="page-section-heading text-secondary mb-0 d-inline-block">입찰목록이 없습니다.</h5>
+                            </div>
+                            {% endif %}
                         </table>
                     </div>
 
