@@ -3,8 +3,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User # 장고가 주는 User 모델 
 from django.contrib import auth
+from .models import My_user
+from auction.models import Product
 from django.contrib import messages
-
 from .models import My_user
 
 
@@ -68,6 +69,6 @@ def mypage(request):
 
     else:
         nowuser = My_user.objects.get(user_id=user_id.id)
-        print(nowuser.credit)
-        context = {'credit' : nowuser.credit }
+        now_product=Product.objects.filter(last_bidder_id=user_id.id)
+        context = {'credit' : nowuser.credit, 'now_product':now_product }
         return render(request, 'user/mypage.html', context)
