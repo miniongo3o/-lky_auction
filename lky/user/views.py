@@ -3,13 +3,13 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User # 장고가 주는 User 모델 
 from django.contrib import auth
-from .models import My_user
 from django.contrib import messages
-import uuid
-import datetime
 
-# 회원가입
+from .models import My_user
+
+
 def signup(request):
+    """회원가입"""
     user_db = User.objects.all()
     if request.method == "POST":
         # 아이디가 존재하면 에러 메세지를 띄워준다.
@@ -31,8 +31,9 @@ def signup(request):
         return render(request, 'user/signup.html')
     return render(request, 'user/signup.html')
 
-# 로그인
+
 def login(request):
+    """로그인"""
     if request.method == "POST":
         username = request.POST["your_name"]
         password = request.POST["password"]
@@ -47,20 +48,24 @@ def login(request):
     else:
         return render(request, 'user/login.html')
 
-# 로그아웃
+
 def logout(request):
+    """로그아웃"""
     auth.logout(request)
     # 로그아웃되었습니다. 메세지 띄워주기
     return HttpResponseRedirect('/')
 
-# 마이페이지
+
 def mypage(request):
+    """마이페이지"""
     user_id = request.user
+
     if request.method == "POST":
         new_email = request.POST["email"]
         user_id.email = new_email
         user_id.save()
-        return HttpResponseRedirect('/')    
+        return HttpResponseRedirect('/')
+
     else:
         nowuser = My_user.objects.get(user_id=user_id.id)
         print(nowuser.credit)
