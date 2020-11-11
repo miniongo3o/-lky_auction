@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.db.models import Q
+from django.shortcuts import render,redirect
 from django.conf import settings
 from django.contrib.auth.models import User
 
@@ -15,13 +16,14 @@ from datetime import datetime
 
 
 def index(request):
-
-    category_id = request.POST.get("products")
+    category_id = request.GET.get("category")
+    print(category_id)
+#     category_id = request.POST.get("products")
 
     if category_id is not None:
-        product = Product.objects.filter(category=category_id).order_by('-pub_date')[:6]
+        product = Product.objects.filter(Q(category=category_id) & Q(visible_status='True')).order_by('-pub_date')[:6]
     else:
-        product = Product.objects.all().order_by('-pub_date')[:6]
+        product = Product.objects.filter(visible_status='True').order_by('-pub_date')[:6]
 
     # 경매 마감시 visible_status = False 로 변환
     today = datetime.now()
@@ -76,7 +78,6 @@ def auctionRegister(request):
         form = registerForm()
 
     return render(request, 'auction/auction_register.html', {'form': form})
-
 
 def auction_credit(request):
     """홈 상단 바 - 크레딧 충전 클릭"""
