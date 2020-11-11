@@ -1,4 +1,5 @@
 {% extends 'auction/base.html' %}
+{% load humanize %}
 {% block content %}
  <section class="page-section portfolio" id="portfolio" style="margin-top: 100px">
             <!-- 경매등록 Section Heading-->
@@ -13,16 +14,39 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- 크레딧 여기 나열-->
                 <div class="row justify-content-center">
-                    <!-- Portfolio Items-->
-                    <div class="font-weight-bold">
-                        <!--버튼 클릭시, charging함수 실행 -->
-                        <div class="input-group input-group-sm mb-3">
-                            <a href="{% url 'charging' %}" class="btn btn-lg">50,000 크레딧 충전</a>
+                    <table>
+                        <tr>
+                            <td><b>{{user.username}} 님의 현재 크레딧 &nbsp;&nbsp;</b></td>
+                            <td><input type="text" value= {{credit | intcomma }} disabled></td>
+                        </tr>
+                    </table>
+                </div>
+                <br><br>
+                <form method="POST">
+                {% csrf_token %}
+                <!-- 크레딧 여기 나열-->
+                    <div class="row justify-content-center">
+                        <!-- Portfolio Items-->
+                        <div class="font-weight-bold">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="credit_id1" name="h-type" value="5000" class="form-check-input"/>
+                                <label class="form-check-label" for="credit_id1">5,000 크레딧</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="credit_id2" name="h-type" value="50000" class="form-check-input"/>
+                                <label class="form-check-label" for="credit_id2">50,000 크레딧</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="credit_id3" name="h-type" value="100000" class="form-check-input"/>
+                                <label class="form-check-label" for="credit_id3">100,000 크레딧</label>
+                            </div>
+                            <br>
+                            <br>
+                            <button type="submit"  class="btn btn-success float-right" style="height:40px; width:200px;">충전하기</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div> <!-- container  End -->
  </section>
 
