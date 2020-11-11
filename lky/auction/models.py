@@ -12,7 +12,7 @@ class Product(models.Model):
     thumbnail = models.CharField(max_length=60, default='')
     # 글 내용
     content = models.TextField()
-
+    register=models.IntegerField(null=False)
     # 최소가격
     min_price = models.IntegerField(default=0)
     # 현재가격 (최대가격)

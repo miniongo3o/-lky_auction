@@ -7,7 +7,7 @@
             <div class="container">
                 <!-- 경매목록 Section Heading-->
                 <div class="text-center">
-                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">경매 목록 </h2>
+                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">경매 목록 </h2>
                 </div>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
@@ -24,7 +24,7 @@
                         <div class="col-md-6 col-lg-4 mb-5">
                             <div class="portfolio-item mx-auto text-center" data-toggle="modal" data-target="#portfolioModal"
                                  data-img="{{ i.photo.url }}" data-end="{{ i.end_date | date:'Y-m-d H:i:s' }}" data-name="{{ i.name }}"
-                                 data-content="{{ i.content }}" data-min="{{ i.min_price }}" data-max="{{ i.max_price }}" data-id="{{i.id}}">
+                                 data-content="{{ i.content }}" data-min="{{ i.min_price }}" data-max="{{ i.max_price }}" data-id="{{i.id}}" data-register="{{i.register}}">
                                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                     <div class="portfolio-item-caption-content text-center text-white">
                                         <i class="fas fa-search-dollar fa-2x"></i>
@@ -98,6 +98,8 @@
                                                                      <input type="hidden" id="product-min-val"  name="product-min" value="">
                                                                      <input type="hidden" id="product-max-val"  name="product-max" value="">
                                                                      <input type="hidden" id="user_credit" value={{credit}}>
+                                                                     <input type="hidden" id="user-id" value={{user.id}}>
+                                                                     <input type="hidden" id="register-id-val" name="register-id" value="">
                                                                      {% if user.is_active %}
                                                                      <button type="submit" class="save btn btn-primary float-right" id="b-btn">
                                                                          <i class="fas fa-check"></i>입찰하기
@@ -152,6 +154,10 @@
             $(".product-max").html(max);
             $("#product-max-val").attr("value", max);
 
+            var register_id = button.data('register')
+            $(".register-id").html(register_id);
+            $("#register-id-val").attr("value", register_id);
+
             var img = button.data('img')
             $("#modal-image").attr("src", img);
 
@@ -178,6 +184,15 @@
             var min_price=Number(document.getElementById('product-min-val').value);
             var max_price=Number(document.getElementById('product-max-val').value);
             var my_credit=Number(document.getElementById('user_credit').value);
+
+
+
+            var user_id=Number(document.getElementById('user-id').value);
+            var register_id=Number(document.getElementById('register-id-val').value);
+            if (register_id==user_id){
+                alert('본인이 등록한 상품에는 입찰할 수 없습니다.');
+                return false;
+            }
 
             if(min_price>bid_price){
                 alert('최소입찰가보다 적습니다.');

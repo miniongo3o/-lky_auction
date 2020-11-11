@@ -60,12 +60,14 @@ def auctionRegister(request):
         f_type = ''.join(f_type_list)
         data_name = str(datetime.now())[:10] + '-' + str(uuid.uuid1()) + f_type
 
+
         file_data['photo'].name = data_name
         form = registerForm(request.POST, request.FILES)
 
         if form.is_valid():
             prod = form.save(commit=False)
             thumbnail_name = 'thumbnail-' + data_name
+            prod.register=request.user.id
             prod.thumbnail = thumbnail_name
             prod.save()
             img = Image.open(settings.MEDIA_ROOT + data_name)
@@ -107,6 +109,10 @@ def do_bid(request):
         user_id = request.user
         now_credit = My_user.objects.get(user_id=user_id.id)
         print(user_id, now_credit)
+
+        if now_max.register==request.user.id:
+            return redirect('/')
+
 
         if min_price < input_price <= now_credit.credit and input_price > max_price:
 
