@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 
+
 class Product(models.Model):
     # 상품명
     name = models.CharField(max_length=60, default='')
@@ -11,9 +12,7 @@ class Product(models.Model):
     thumbnail = models.CharField(max_length=60, default='')
     # 글 내용
     content = models.TextField()
-    # 판매자 아이디 -> django User 상속
-    # seller_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    
+
     # 최소가격
     min_price = models.IntegerField(default=0)
     # 현재가격 (최대가격)
@@ -30,5 +29,6 @@ class Product(models.Model):
     # 마감유무(True=진행중 / False=마감)
     visible_status = models.BooleanField(default=True)
     last_bidder_id=models.IntegerField(blank=True, null=True)
+
     def __str__(self):
         return self.name

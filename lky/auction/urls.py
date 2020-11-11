@@ -9,7 +9,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('auctionRegister', views.auctionRegister, name='auction_register'),
     path('auction_credit',views.auction_credit,name='auction_credit'),
-    path('charging',views.charging,name='charging'),
+    # path('charging/', views.charging,name='charging'),
     path('bid/', views.do_bid, name='do_bid'),
 ]
 
