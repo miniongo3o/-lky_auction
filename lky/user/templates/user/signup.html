@@ -31,37 +31,40 @@
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
-                        <h2 class="form-title">Sign up</h2>
+                        <h2 class="form-title">회원가입</h2>
                         <form action="{% url 'signup' %}" method="POST" class="register-form" id="register-form">
                             {% csrf_token %}
                             <div class="alert alert-danger" id="alert-danger2"> 모든 정보를 입력해주세요.</div>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="username" id="name" placeholder="Your Name"/>
+                                <input type="text" name="username" id="name" placeholder="아이디"/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email"/>
+                                <input type="email" name="email" id="email" placeholder="이메일"/>
                             </div>
                             
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password1" id="pass" placeholder="Password"/>
+                                <input type="password" name="password1" id="pass" placeholder="비밀번호"/>
                             </div>
                             <div class="form-group">
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="password2" id="re_pass" placeholder="Repeat your password"/>
+                                <input type="password" name="password2" id="re_pass" placeholder="비밀번호 확인"/>
                             </div>
                             <div class="alert alert-danger" id="alert-danger" style="color: red;">비밀번호가 일치하지 않습니다.</div>
 
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" id="submit13" class="form-submit" value="Register"/>
+                                <input type="submit" name="signup" id="submit13" class="form-submit" value="가입하기"/>
+                                <div style="float: right" >
+                                    <a href="{% url 'login' %}" class="signup-image-link">이미 이경영 회원입니다.</a>
+                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="signup-image">
                         <figure><img src="{% static 'images/signup-image.jpg'%}" alt="sing up image"></figure>
-                        <a href="{% url 'login' %}" class="signup-image-link">I am already member</a>
+                        <!-- <a href="{% url 'login' %}" class="signup-image-link">이미 이경영 회원입니다.</a> -->
                     </div>
                 </div>
             </div>
