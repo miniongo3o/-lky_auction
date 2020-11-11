@@ -18,7 +18,10 @@
 .category_btn{
     font-size: 19px;
 }
-
+/*#category_list{*/
+/*    display: inline-block;*/
+/*    margin: auto;*/
+/*}*/
 /*.category_btn.selected{*/
 /*    color: #117964;*/
 /*    font-weight: bold;*/
