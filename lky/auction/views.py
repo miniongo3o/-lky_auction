@@ -80,20 +80,18 @@ def auctionRegister(request):
 
 def auction_credit(request):
     """홈 상단 바 - 크레딧 충전 클릭"""
-    return render(request, 'auction/auction_credit.html')
-
-
-def charging(request):
-    """
-    auction_credit.html에서 실행할 충전 함수
-    현재 로그인 중인 auth_user의 id에 해당하는 크레딧을 50000원 증가시킨다.
-    """
     user_id = request.user
-    now_credit = My_user.objects.get(user_id=user_id.id)
-    now_credit.credit = int(now_credit.credit) + 50000
-    now_credit.save()
-    return render(request, 'auction/auction_credit.html')
-
+    if request.method == "POST":
+        h_type = request.POST.get('h-type') # 라디오버튼 선택
+        print(int(h_type))
+        now_credit = My_user.objects.get(user_id=user_id.id)
+        now_credit.credit = int(now_credit.credit) + int(h_type)
+        now_credit.save()
+        return redirect('/') # 충전완료
+    else:
+        nowuser = My_user.objects.get(user_id=user_id.id)
+        context = {'credit' : nowuser.credit}
+        return render(request, 'auction/auction_credit.html', context) # 충전하러 들어왔어
 
 def do_bid(request):
     """입찰 시행"""
