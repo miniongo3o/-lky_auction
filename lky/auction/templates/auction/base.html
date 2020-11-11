@@ -27,23 +27,6 @@
         <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
 
             <div class="container"><a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}">이경영</a>
-<!--                <form class="form-inline" style="margin-left: 15px">-->
-<!--                    <input class="form-control mr-sm-2" type="search" placeholder="물품 카테고리 검색" aria-label="Search">-->
-<!--                <form class="form-inline" style="margin-left: 15px" method='POST' action="{% url 'index' %}">-->
-<!--                    {% csrf_token %}-->
-<!--                    &lt;!&ndash;<input class="form-control mr-sm-2" type="search" placeholder="물품 카테고리 검색" aria-label="Search">&ndash;&gt;-->
-<!--                    <input type="hidden" id="category_id" value="{{category_id}}">-->
-<!--                    <select class="form-control" name="products">-->
-<!--                        <option id="category_0" value="0">자전거</option>-->
-<!--                        <option id="category_1" value="1">식기류</option>-->
-<!--                        <option id="category_2" value="2">전자기기</option>-->
-<!--                        <option id="category_3" value="3">가구</option>-->
-<!--                        <option id="category_4" value="4" >기타</option>-->
-<!--                    </select>-->
-
-
-<!--                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-<!--                </form>-->
                 <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
                 <div class="collapse navbar-collapse flex-md-column" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
@@ -63,127 +46,31 @@
                         {% endif %}
                     </ul>
                     <div class="input-group">
-                        <ul class="navbar-nav offset-lg-1 small" id="category_list">
-                            <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=0'">
-                            <a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a>
+                        <ul class="navbar-nav" id="category_list">
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <button class="category_btn"><a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a></button>
                             </li>
-
-                            <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=1'">
-                                <a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="./?category=1">가구/인테리어</a>
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <button class="category_btn"><a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="./?category=1">가구/인테리어</a></button>
                             </li>
-
-                            <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=2'">
-                                <a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="./?category=2">생활용품</a>
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <button class="category_btn"><a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="./?category=2">생활용품</a></button>
                             </li>
-
-                            <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=3'">
-                                <a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="./?category=3">의류</a>
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <button class="category_btn"><a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="./?category=3">의류</a></button>
                             </li>
-
-                            <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=4'">
-                                <a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="./?category=4">게임/취미</a>
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <button class="category_btn"><a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="./?category=4">게임/취미</a></button>
                             </li>
-
-                            <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=5'">
-                                <a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="./?category=5">도서/티켓/음반</a>
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <button class="category_btn"><a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="./?category=5">도서/티켓/음반</a></button>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
-<!--        <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="nav_category">-->
-<!--            <div class="collapse navbar-collapse">-->
-<!--&lt;!&ndash;                <ul class="navbar-nav offset-lg-3" id="category_list">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button type="button" class="category_btn" id="category_0" onclick="location.href='./?category=0'">디지털/가전</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button type="button" class="category_btn" id="category_1" onclick="location.href='./?category=1'">가구/인테리어</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button type="button" class="category_btn" id="category_2" onclick="location.href='./?category=2'">생활용품</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button type="button" class="category_btn" id="category_3" onclick="location.href='./?category=3'">의류</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button type="button" class="category_btn" id="category_4" onclick="location.href='./?category=4'">게임/취미</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button type="button" class="category_btn" id="category_5" onclick="location.href='./?category=5'">도서/티켓/음반</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
 
-
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="category_btn"><a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a></button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="category_btn"><a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="./?category=1">가구/인테리어</a></button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="category_btn"><a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="./?category=2">생활용품</a></button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="category_btn"><a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="./?category=3">의류</a></button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="category_btn"><a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="./?category=4">게임/취미</a></button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="category_btn"><a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="./?category=5">도서/티켓/음반</a></button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="./?category=1">가구/인테리어</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="./?category=2">생활용품</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="./?category=3">의류</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="./?category=4">게임/취미</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="./?category=5">도서/티켓/음반</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-
-
-
-
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=0'">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=1'">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="./?category=1">가구/인테리어</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=2'">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="./?category=2">생활용품</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=3'">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="./?category=3">의류</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=4'">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="./?category=4">게임/취미</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <li class="nav-item mx-0 mx-lg-1" onclick="location.href='./?category=5'">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="./?category=5">도서/티켓/음반</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </nav>-->
         {% block content %}
 
         {% endblock %}
@@ -225,19 +112,16 @@
 </html>
 
 <script>
-    // const category_btn = document.querySelector(".category_btn");
-
-    // $('.category_btn').on('click', function() {
-    //     console.log('왜이래');
-    //     $('.category_btn').removeClass('selected');
-    //     $('.category_btn').addClass('selected');
-    // });
-
+    // 이동은 되는데 클래스 적용이 안됨
+    $('.category_btn').on('click', function() {
+        console.log('왜이래');
+        $('.category_btn').removeClass('selected');
+        $('.category_btn').addClass('selected');
+    });
 
     // 클릭한 카테고리의 글자색 바뀜 하지만 페이지이동이안됨
     // url이동 한 다음에는 아래 함수가 적용이 안되는 것 같음
-
-    // function myfunction(){
+        // $(function(){
     //     var sBtn = $("#category_list > li");
     //     sBtn.find("a").click(function (){
     //         console.log("asdf");
@@ -245,17 +129,7 @@
     //         $(this).parent().addClass("active");
     //         return false;
     //     })
-    // }
-
-    $(function(){
-        var sBtn = $("#category_list > li");
-        sBtn.find("a").click(function (){
-            console.log("asdf");
-            sBtn.removeClass("active");
-            $(this).parent().addClass("active");
-            return false;
-        })
-    })
+    // })
 
 
 </script>

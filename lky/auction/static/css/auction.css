@@ -1,33 +1,17 @@
-#nav_category {
-    padding: 0;
-    margin-top: 79px;
-}
-#nav_category ul {
-    margin-right: 30px;
-}
 .category_btn {
     color: white;
     background-color: transparent;
     border: none;
-    width: 190px;
+    width: 160px;
     padding: 0;
+    font-size: 16px;
+    height: 30px;
 }
 .category_btn:focus{
     outline: none;
 }
-.category_btn{
-    font-size: 19px;
-}
-/*#category_list{*/
-/*    display: inline-block;*/
-/*    margin: auto;*/
-/*}*/
-/*.category_btn.selected{*/
+
+/*#category_list > li.active > a{*/
 /*    color: #117964;*/
 /*    font-weight: bold;*/
 /*}*/
-
-#category_list > li.active > a{
-    color: #117964;
-    font-weight: bold;
-}
