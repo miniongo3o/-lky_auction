@@ -50,22 +50,22 @@
                         <input type="hidden" id="category_id" value="{{ category_id }}">
                         <ul class="navbar-nav" id="category_list">
                             <li class="nav-item mx-0 mx-lg-1">
-                                <button class="category_btn"><a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a></button>
+                                <button class="category_btn"><a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="/?category=0">디지털/가전</a></button>
                             </li>
                             <li class="nav-item mx-0 mx-lg-1">
-                                <button class="category_btn"><a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="./?category=1">가구/인테리어</a></button>
+                                <button class="category_btn"><a id="category_1"class="nav-link py-3 px-2 px-lg-4" href="/?category=1">가구/인테리어</a></button>
                             </li>
                             <li class="nav-item mx-0 mx-lg-1">
-                                <button class="category_btn"><a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="./?category=2">생활용품</a></button>
+                                <button class="category_btn"><a id="category_2"class="nav-link py-3 px-2 px-lg-4" href="/?category=2">생활용품</a></button>
                             </li>
                             <li class="nav-item mx-0 mx-lg-1">
-                                <button class="category_btn"><a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="./?category=3">의류</a></button>
+                                <button class="category_btn"><a id="category_3" class="nav-link py-3 px-2 px-lg-4" href="/?category=3">의류</a></button>
                             </li>
                             <li class="nav-item mx-0 mx-lg-1">
-                                <button class="category_btn"><a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="./?category=4">게임/취미</a></button>
+                                <button class="category_btn"><a id="category_4" class="nav-link py-3 px-2 px-lg-4" href="/?category=4">게임/취미</a></button>
                             </li>
                             <li class="nav-item mx-0 mx-lg-1">
-                                <button class="category_btn"><a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="./?category=5">도서/티켓/음반</a></button>
+                                <button class="category_btn"><a id="category_5" class="nav-link py-3 px-2 px-lg-4" href="/?category=5">도서/티켓/음반</a></button>
                             </li>
                         </ul>
                     </div>
@@ -120,24 +120,4 @@
         $(target_id).css("color", "#2bccab")
         $(target_id).css("font-weight", "bold")
     })
-    // 이동은 되는데 클래스 적용이 안됨
-    // $('.category_btn').on('click', function() {
-    //    console.log('왜이래');
-    //    $('.category_btn').removeClass('selected');
-    //    $('.category_btn').addClass('selected');
-    // });
-
-    // 클릭한 카테고리의 글자색 바뀜 하지만 페이지이동이안됨
-    // url이동 한 다음에는 아래 함수가 적용이 안되는 것 같음
-        // $(function(){
-    //     var sBtn = $("#category_list > li");
-    //     sBtn.find("a").click(function (){
-    //         console.log("asdf");
-    //         sBtn.removeClass("active");
-    //         $(this).parent().addClass("active");
-    //         return false;
-    //     })
-    // })
-
-
 </script>
