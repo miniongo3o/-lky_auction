@@ -17,8 +17,6 @@ from datetime import datetime
 
 def index(request):
     category_id = request.GET.get("category")
-    print(category_id)
-#     category_id = request.POST.get("products")
 
     if category_id is not None:
         product = Product.objects.filter(Q(category=category_id) & Q(visible_status='True')).order_by('-pub_date')[:6]
