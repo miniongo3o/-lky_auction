@@ -47,6 +47,7 @@
                         {% endif %}
                     </ul>
                     <div class="input-group">
+                        <input type="hidden" id="category_id" value="{{ category_id }}">
                         <ul class="navbar-nav" id="category_list">
                             <li class="nav-item mx-0 mx-lg-1">
                                 <button class="category_btn"><a id="category_0"class="nav-link py-3 px-2 px-lg-4" href="./?category=0">디지털/가전</a></button>
@@ -113,12 +114,18 @@
 </html>
 
 <script>
+    $(()=>{
+        var c_id = $('#category_id').attr('value')
+        var target_id = '#category_' + c_id
+        $(target_id).css("color", "#117964")
+        $(target_id).css("font-weight", "bold")
+    })
     // 이동은 되는데 클래스 적용이 안됨
-    $('.category_btn').on('click', function() {
-        console.log('왜이래');
-        $('.category_btn').removeClass('selected');
-        $('.category_btn').addClass('selected');
-    });
+    // $('.category_btn').on('click', function() {
+    //    console.log('왜이래');
+    //    $('.category_btn').removeClass('selected');
+    //    $('.category_btn').addClass('selected');
+    // });
 
     // 클릭한 카테고리의 글자색 바뀜 하지만 페이지이동이안됨
     // url이동 한 다음에는 아래 함수가 적용이 안되는 것 같음
