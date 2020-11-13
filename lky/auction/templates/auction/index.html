@@ -147,11 +147,13 @@
             $(".product-detail").html(content)
 
             var min = button.data('min')
-            $(".product-min").html(min);
+            min_comma = String(min).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $(".product-min").html(min_comma);
             $("#product-min-val").attr("value", min);
 
             var max = button.data('max')
-            $(".product-max").html(max);
+            max_comma = String(max).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $(".product-max").html(max_comma);
             $("#product-max-val").attr("value", max);
 
             var register_id = button.data('register')
