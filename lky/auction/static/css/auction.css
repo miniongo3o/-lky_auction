@@ -27,7 +27,24 @@ footer {
 .category_btn:focus{
     outline: none;
 }
-
+.responsive-title{
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .category_btn {
+        text-align: left;
+        font-weight: bold;
+    }
+    .responsive-title {
+        margin: 20px 0px 8px 0px;
+        padding: 0;
+        display: block;
+        color: white;
+    }
+    #category_list li{
+        margin-bottom: 4px;
+    }
+}
 
 /* MY PAGE */
 .mypage_info {
@@ -63,7 +80,4 @@ footer {
     color: red;
 }
 
-/*#category_list > li.active > a{*/
-/*    color: #117964;*/
-/*    font-weight: bold;*/
-/*}*/
+
