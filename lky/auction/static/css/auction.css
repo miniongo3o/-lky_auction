@@ -30,6 +30,7 @@ footer {
 .responsive-title{
     display: none;
 }
+
 @media screen and (max-width: 768px) {
     .category_btn {
         text-align: left;

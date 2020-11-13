@@ -68,7 +68,7 @@
                                                         <div class="divider-custom-line"></div>
                                                     </div>
                                                     <!-- 경매 상품 Modal - Image-->
-                                                    <img class="img-fluid rounded mb-5" id="modal-image" src="{% static 'assets/img/portfolio/placeholder.png' %}" alt="Log Cabin"/>
+                                                    <img class="img-fluid rounded mb-5" id="modal-image" src="{% static 'assets/img/portfolio/placeholder.png' %}"/>
                                                     <!-- 경매 상품 Modal - Text-->
                                                     <table class="table">
                                                         <tr>
@@ -93,7 +93,7 @@
                                                              <form method="POST" class="bid-form" action="{% url 'do_bid' %}">
                                                                  {% csrf_token %}
                                                                  <td>
-                                                                    <input type="number" step="1" pattern="\d+" id="bid-value" name="bid-value" />
+                                                                    <input type="number" step="1" pattern="\d+" id="bid-value" name="bid-value"/>
                                                                      <input type="hidden" id="product-id" name="product-id" value="">
                                                                      <input type="hidden" id="product-min-val"  name="product-min" value="">
                                                                      <input type="hidden" id="product-max-val"  name="product-max" value="">
@@ -101,7 +101,7 @@
                                                                      <input type="hidden" id="user-id" value={{user.id}}>
                                                                      <input type="hidden" id="register-id-val" name="register-id" value="">
                                                                      {% if user.is_active %}
-                                                                     <button type="submit" class="save btn btn-primary float-right" id="b-btn">
+                                                                     <button type="submit" class="save btn btn-primary" id="b-btn" style="margin-left: 15px">
                                                                          <i class="fas fa-check"></i>입찰하기
                                                                      </button>
                                                                      {% else %}
