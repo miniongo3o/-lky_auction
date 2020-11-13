@@ -30,6 +30,9 @@ footer {
 
 
 /* MY PAGE */
+.mypage_info {
+    margin: auto;
+}
 .info_table {
     margin: auto;
     font-weight: bold;
