@@ -1,0 +1,36 @@
+{% extends 'auction/base.html' %}
+{% block content %}
+
+ <section class="page-section portfolio" id="portfolio" style="margin-top: 100px">
+            <!-- 경매등록 Section Heading-->
+            <div class="container">
+                <!-- 경매등록 Section Heading-->
+                <div class="text-center">
+                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">경매 등록 </h2>
+                </div>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- 경매 Grid Items-->
+                <div class="row justify-content-center">
+                    <!-- Portfolio Items-->
+                    <div class="font-weight-bold">
+                        <table>
+                            <form method="POST" class="register-form" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <table class="table table-bordered table-hover">
+                                    {{ form.as_table }}
+                                </table>
+                                <button type="submit" class="save btn btn-info float-right">저장</button>
+                            </form>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- container  End -->
+ </section>
+
+
+{% endblock %}

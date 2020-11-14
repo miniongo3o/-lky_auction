@@ -1,0 +1,268 @@
+{% extends 'auction/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+        <section class="page-section portfolio" id="portfolio" style="margin-top: 100px">
+            <!-- 경매목록 Section Heading-->
+            <div class="container">
+                <!-- 경매목록 Section Heading-->
+                <div class="text-center">
+                    <h2 class="page-section-heading text-secondary mb-0 d-inline-block">경매 목록 </h2>
+                </div>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- 경매목록 Grid Items-->
+                <div class="row justify-content-center">
+                    <!-- 경매목록 Items-->
+                    {% for i in product %}
+                        <div class="col-md-6 col-lg-4 mb-5">
+                            <div class="portfolio-item mx-auto text-center" data-toggle="modal" data-target="#portfolioModal"
+                                 data-img="{{ i.photo }}" data-end="{{ i.end_date }}" data-name="{{ i.name }}"
+                                 data-content="{{ i.content }}" data-min="{{ i.min_price }}" data-max="{{ i.max_price }}" data-id="{{i.id}}" data-register="{{i.register}}">
+                                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-white">
+                                        <i class="fas fa-search-dollar fa-2x"></i>
+                                    </div>
+                                </div>
+                                {% if i.photo %}
+                                <div id="image-container" style="margin: auto auto 30px auto; text-align: center; line-height: 240px;">
+                                    <img id="product-image" style="border-radius: .3rem; max-width: 100%; height: auto;" class="img-fluid position-center" src="media/{{ i.thumbnail }}" alt=""/>
+                                </div>
+                                {% endif %}
+                                <div class="font-weight-bold" style="margin: 0 0 10px 8px">
+                                    <span class="float-left blockquote">{{ i.name }}</span>
+                                    <br>
+                                    <span class="float-right ">시작 가격:{{ i.min_price | intcomma }}￦</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                        <!-- 경매 상품 Modal -->
+                        <div class="portfolio-modal modal fade" id="portfolioModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </button>
+                                    <div class="modal-body text-center">
+                                        <div class="container">
+                                            <div class="row justify-content-center">
+                                                <div class="col-lg-8">
+                                                    <!-- 경매 상품 Modal - Title-->
+                                                    <h2 class="product-name text-secondary mb-0"></h2>
+                                                    <!-- Icon Divider-->
+                                                    <div class="divider-custom">
+                                                        <div class="divider-custom-line"></div>
+                                                        <div class="divider-custom-icon">
+                                                            <i class="fas fa-star"></i>
+                                                        </div>
+                                                        <div class="divider-custom-line"></div>
+                                                    </div>
+                                                    <!-- 경매 상품 Modal - Image-->
+                                                    <img class="img-fluid rounded mb-5" id="modal-image" src="{% static 'assets/img/portfolio/placeholder.png' %}"/>
+                                                    <!-- 경매 상품 Modal - Text-->
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td><div>시작값</div></td>
+                                                            <td><div class="product-min"></div></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><div>최대값</div></td>
+                                                            <td><div class="product-max"></div></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><div>남은시간</div></td>
+                                                            <td><div id="product-end-date"></div></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><div>내용</div></td>
+                                                            <td><div class="product-detail"></div></td>
+                                                        </tr>
+
+                                                         <tr id="bidForm">
+                                                            <td><div>입찰금액</div></td>
+                                                             <form method="POST" class="bid-form" action="{% url 'do_bid' %}">
+                                                                 {% csrf_token %}
+                                                                 <td>
+                                                                    <input type="number" step="1" pattern="\d+" id="bid-value" name="bid-value"/>
+                                                                     <input type="hidden" id="product-id" name="product-id" value="">
+                                                                     <input type="hidden" id="product-min-val"  name="product-min" value="">
+                                                                     <input type="hidden" id="product-max-val"  name="product-max" value="">
+                                                                     <input type="hidden" id="user_credit" value={{credit}}>
+                                                                     <input type="hidden" id="user-id" value={{user.id}}>
+                                                                     <input type="hidden" id="register-id-val" name="register-id" value="">
+                                                                     {% if user.is_active %}
+                                                                     <button type="submit" class="save btn btn-primary" id="b-btn" style="margin-left: 15px">
+                                                                         <i class="fas fa-check"></i>입찰하기
+                                                                     </button>
+                                                                     {% else %}
+                                                                     <br><br>
+                                                                     <a><b>입찰하려면 로그인이 필요합니다!</b></a>
+                                                                     <a href="{% url 'login' %}">
+                                                                         <button type="button" class="save btn btn-primary float-right">
+                                                                        <i class="fas fa-check"></i>로그인하기
+                                                                        </button>
+                                                                    </a>
+                                                                    {% endif %}
+                                                                 </td>
+                                                             </form>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+    // 메인페이지 - 모달(상품 디테일)창
+    $(function() {
+        $('#portfolioModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+
+            var id = button.data('id')
+            $(".product-id").html(id);
+            $("#product-id").attr("value", id);
+
+            var name = button.data('name')
+            $(".product-name").html(name)
+
+            var content = button.data('content')
+            $(".product-detail").html(content)
+
+            var min = button.data('min')
+            min_comma = String(min).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $(".product-min").html(min_comma);
+            $("#product-min-val").attr("value", min);
+
+            var max = button.data('max')
+            max_comma = String(max).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $(".product-max").html(max_comma);
+            $("#product-max-val").attr("value", max);
+
+            var register_id = button.data('register')
+            $(".register-id").html(register_id);
+            $("#register-id-val").attr("value", register_id);
+
+            var img = button.data('img')
+
+            $("#modal-image").attr("src", 'media/'+img);
+
+            var end = button.data('end')
+
+            //  경매종료날짜 end를 string -> date 로 변환
+            var year = end.substr(0,4)
+            var month = end.substr(5,2)
+            var day = end.substr(8,2)
+            var hour = end.substr(11,2)
+            var minute = end.substr(14,2)
+            var second = end.substr(17,2)
+
+            end = new Date(year, month-1, day, hour, minute, second)
+            // 변환 끝
+            countDownTimer('product-end-date', end);
+        })
+    })
+
+    $(document).ready(function(){
+        $('#b-btn').click(function(){
+            var bid_price = Number(document.getElementById('bid-value').value);
+            var min_price=Number(document.getElementById('product-min-val').value);
+            var max_price=Number(document.getElementById('product-max-val').value);
+            var my_credit=Number(document.getElementById('user_credit').value);
+
+
+
+            var user_id=Number(document.getElementById('user-id').value);
+            var register_id=Number(document.getElementById('register-id-val').value);
+            if (register_id==user_id){
+                alert('본인이 등록한 상품에는 입찰할 수 없습니다.');
+                return false;
+            }
+
+            if(min_price>bid_price){
+                alert('최소입찰가보다 적습니다.');
+                return false;
+            }
+            else {
+                if(bid_price>max_price) {
+                    if( my_credit>bid_price) {
+                        alert('최고가 입찰하였습니다.');
+                    }
+                    else {
+                        alert('크레딧이 부족해요.');
+                        return false;
+                    }
+                }
+                else {
+                    alert('최소입찰가보다는 높지만, 더높은 입찰자들이 존재합니다.');
+                    return false;
+                }
+            }
+        });
+    })
+
+    // 경매 마감 시간 카운트다운
+    const countDownTimer = function(id, date) {
+        var _vDate = new Date(date);
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var timer;
+
+
+        function showRemaining() {
+            $('#portfolioModal').on('hidden.bs.modal', function () {
+                document.getElementById(id).textContent = "";
+                clearInterval(timer);
+            });
+
+            var now = new Date();
+            console.log(_vDate)
+            console.log(now)
+            var distDt = _vDate - now;
+            console.log(distDt)
+
+
+            if (distDt < 0) {
+                clearInterval(timer);
+                document.getElementById(id).textContent = "입찰이 종료된 상품입니다!";
+                $(function() {
+                    $("#bidForm").css({
+                        "visibility": "hidden"
+                    });
+                });
+                return;
+            }
+
+            var days = Math.floor(distDt / _day);
+            var hours = Math.floor((distDt % _day) / _hour);
+            var minutes = Math.floor((distDt % _hour) / _minute);
+            var seconds = Math.floor((distDt % _minute) / _second);
+
+            document.getElementById(id).textContent = days + '일';
+            document.getElementById(id).textContent += hours + '시간';
+            document.getElementById(id).textContent += minutes + '분';
+            document.getElementById(id).textContent += seconds + '초';
+        }
+        timer = setInterval(showRemaining, 1000);
+    }
+</script>
+{% endblock %}

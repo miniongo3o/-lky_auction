@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- toastr js 관련 -->
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+    {% load static %}
+    <title>Sign Up</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css'%}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- toastr js 라이브러리 -->
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {% if error %}
+    <script>toastr.error('{{error}}');</script>
+    {% endif %}
+
+    <div class="main">
+    <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">회원가입</h2>
+                        <form action="{% url 'signup' %}" method="POST" class="register-form" id="register-form">
+                            {% csrf_token %}
+                            <div class="alert alert-danger" id="alert-danger2"> 모든 정보를 입력해주세요.</div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="name" placeholder="아이디"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="이메일"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password1" id="pass" placeholder="비밀번호"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="password2" id="re_pass" placeholder="비밀번호 확인"/>
+                            </div>
+                            <div class="alert alert-danger" id="alert-danger" style="color: red;">비밀번호가 일치하지 않습니다.</div>
+
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="submit13" class="form-submit" value="가입하기"/>
+                                <div style="float: right" >
+                                    <a href="{% url 'login' %}" class="signup-image-link">이미 이경영 회원입니다.</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="{% static 'images/signup-image.jpg'%}" alt="sing up image"></figure>
+                        <!-- <a href="{% url 'login' %}" class="signup-image-link">이미 이경영 회원입니다.</a> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 비밀번호, 정보 유효성 검사 -->
+    <script type="text/javascript"> 
+        $(function(){
+            $("#alert-success").hide();
+            $("#alert-danger").hide(); 
+            $("#alert-danger2").hide(); 
+            $("#submit13").attr("disabled", "disabled");
+            $("input").keyup(function(){ 
+                var pwd1=$("#pass").val(); 
+                var pwd2=$("#re_pass").val(); 
+                var user_id=$("#name").val();
+                var email=$("#email").val();
+                // 정보중 하나라도 비었으면
+                if( user_id == "" || email == "" || pwd1 == "" || pwd2 == ""){
+                    $("#alert-danger2").show();
+                    $("#submit13").attr("disabled", "disabled"); // 비활성화
+                }else{
+                    $("#alert-danger2").hide();
+                    if(pwd1 == pwd2){ //비밀 번호가 같아야 넘어갈 수 있다.
+                        $("#alert-danger").hide(); 
+                        $("#submit13").removeAttr("disabled");
+                    }else{
+                        $("#alert-danger").show(); 
+                        $("#submit13").attr("disabled", "disabled");
+                    }
+                }
+            }); 
+        }); 
+    </script>
+</body>
+</html>

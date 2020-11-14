@@ -1,0 +1,84 @@
+root {
+    font-family: 'Do Hyeon', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+body {
+    font-family: 'Noto Sans KR', sans-serif;!important;
+}
+#title {
+    /*font-size: 40px!important;*/
+    margin: 0;
+}
+#mainNav {
+    font-family: 'Noto Sans KR', sans-serif;!important;
+}
+footer {
+    font-family: 'Noto Sans KR', sans-serif;!important;
+}
+.category_btn {
+    color: white;
+    background-color: transparent;
+    border: none;
+    width: 170px;
+    padding: 0;
+    font-size: 16px;
+    height: 30px;
+}
+.category_btn:focus{
+    outline: none;
+}
+.responsive-title{
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .category_btn {
+        text-align: left;
+        font-weight: bold;
+    }
+    .responsive-title {
+        margin: 20px 0px 8px 0px;
+        padding: 0;
+        display: block;
+        color: white;
+    }
+    #category_list li{
+        margin-bottom: 4px;
+    }
+}
+
+/* MY PAGE */
+.mypage_info {
+    margin: auto;
+}
+.info_table {
+    margin: auto;
+    font-weight: bold;
+}
+.info_table td {
+    padding-bottom: 18px;
+}
+.info_table button {
+    padding: 1px;
+}
+.mypage_label {
+    width: 100px;
+    text-align: center;
+}
+.mypage_bidList {
+    margin-top: 55px;
+}
+#bidList_table {
+    border-spacing: 30px;
+    border-collapse: separate;
+}
+.bid_status_ing {
+    font-weight: bold;
+    color: #2bccab;
+}
+.bid_status_done {
+    font-weight: bold;
+    color: red;
+}
+
+
